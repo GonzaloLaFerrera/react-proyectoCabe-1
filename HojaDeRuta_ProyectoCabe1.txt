@@ -1,0 +1,24 @@
+PROYECTO CABE 1
+
+
+- Páginas
+
+    *Landing -> para Logueo o Registro 
+    *Home -> Logueado; muestra tareas (la app en sí); highlight/icono de tarea pronta a vencer y pausada; Muestre Usuario Logueado; Modo Dark/Light; 
+    *Todo Detail -> card de detalle de la tarea (con vencimiento opcional, con descripcion ampliada, observaciones) / con edición y submiteo
+    *Logout -> despedida
+
+
+- Componentes
+
+
+
+- Complementos
+
+
+
+- Features extra
+
+    *envio de mail 
+    *recordatorio de logueo
+    *envio de whatsapp con tarea urgente/pronta a vencer
