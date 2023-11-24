@@ -1,4 +1,6 @@
 import IconCross from "./components/icons/IconCross";
+import IconReact from "./components/icons/IconReact";
+import IconMoon from "./components/icons/IconMoon";
 
 const App = () => {
     return (
@@ -7,10 +9,10 @@ const App = () => {
         <header className="container mx-auto px-4 pt-8">
             <div className="flex justify-between ">
                 <h1 className="text-3xl font-semibold uppercase tracking-[0.3em] text-center text-white md:text-right">Proyecto Cabe</h1>
-                <button className="text-white">luna</button>
+                <button className="text-white h-1"><IconMoon/></button>
             </div>
-            <form className="flex items-center gap-4 overflow-hidden rounded-md bg-white py-2 px-2 mt-8">
-                <span className="inline-block rounded-full h-5 w-5"></span>
+            <form className="flex items-center gap-4 overflow-hidden rounded-md bg-white py-4 px-4 mt-8">
+                <button><IconReact/></button>
                 <input className="w-full outline-none text-gray-300" type="text" placeholder="Create a new to do..." />
             </form>
         </header>
@@ -19,22 +21,22 @@ const App = () => {
         <main className="container mx-auto mt-8 px-4">
             <div className="rounded-md bg-white">
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button className="inline-block rounded-full h-5 w-5"></button>
+                    <button><IconReact/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button className="inline-block rounded-full h-5 w-5"></button>
+                    <button><IconReact/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button className="inline-block rounded-full h-5 w-5"></button>
+                    <button><IconReact/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button className="inline-block rounded-full h-5 w-5"></button>
+                    <button><IconReact/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
@@ -67,3 +69,7 @@ const App = () => {
 };
 
 export default App;
+
+
+
+{/* <button className="inline-block rounded-full h-5 w-5"></button> */}
