@@ -1,6 +1,6 @@
 import IconCross from "./components/icons/IconCross";
-import IconReact from "./components/icons/IconReact";
 import IconMoon from "./components/icons/IconMoon";
+import IconCircle from "./components/icons/IconCircle";
 
 const App = () => {
     return (
@@ -9,10 +9,10 @@ const App = () => {
         <header className="container mx-auto px-4 pt-8">
             <div className="flex justify-between ">
                 <h1 className="text-3xl font-semibold uppercase tracking-[0.3em] text-center text-white md:text-right">Proyecto Cabe</h1>
-                <button className="text-white h-1"><IconMoon/></button>
+                <button className="h-1"><IconMoon className='fill-white'/></button>
             </div>
             <form className="flex items-center gap-4 overflow-hidden rounded-md bg-white py-4 px-4 mt-8">
-                <button><IconReact/></button>
+                <button><IconCircle/></button>
                 <input className="w-full outline-none text-gray-300" type="text" placeholder="Create a new to do..." />
             </form>
         </header>
@@ -21,22 +21,22 @@ const App = () => {
         <main className="container mx-auto mt-8 px-4">
             <div className="rounded-md bg-white">
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button><IconReact/></button>
+                    <button><IconCircle/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button><IconReact/></button>
+                    <button><IconCircle/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button><IconReact/></button>
+                    <button><IconCircle/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>
                 <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                    <button><IconReact/></button>
+                    <button><IconCircle/></button>
                     <p className="grow text-gray-600">Complete online JS course</p>
                     <button><IconCross /></button>
                 </article>

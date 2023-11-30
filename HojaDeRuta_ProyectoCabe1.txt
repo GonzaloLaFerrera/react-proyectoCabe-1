@@ -1,20 +1,35 @@
 PROYECTO CABE 1
 
-
 - Páginas
 
     *Landing -> para Logueo o Registro 
-    *Home -> Logueado; muestra tareas (la app en sí); highlight/icono de tarea pronta a vencer y pausada; Muestre Usuario Logueado; Modo Dark/Light; 
+    *Home -> Logueado; muestra tareas (la App en sí); highlight/icono de tarea pronta a vencer y pausada; Muestre Usuario Logueado; Modo Dark/Light; 
     *Todo Detail -> card de detalle de la tarea (con vencimiento opcional, con descripcion ampliada, observaciones) / con edición y submiteo
     *Logout -> despedida
 
+- Notas
+    *Estructura Modularización/Componentización:
+        > Header (Dark/Light Mode)
+        > TodoCreate
+        > TodoList (TodoItem) --> Update y Delete (Podemos agregar tmb el icono para el detail de cada Tarea/descripcion)
+        > TodoComputed
+        > TodoFilter
+        > Footer
+    (pensar en Layouts Privados y Públicos, con inclusión de NavBar)
+    
+    *Sección Registro/Login
+        > Landing (Bienvenido: Registrarse o Inicio de Sesión)
+        > Register
+        > Login (puede estar dentro del mismo 'landing')
+        > Logout
 
 - Componentes
 
 
 
 - Complementos
-
+    *Tailwind CSS
+    *ReactRouter 6.4
 
 
 - Features extra
