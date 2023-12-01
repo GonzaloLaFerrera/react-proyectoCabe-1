@@ -4,11 +4,15 @@ import NavBar from "../components/NavBar";
 
 const LayoutPublic = () => {
     return(
-        <>
-            <nav><NavBar /></nav>
-            <main><Outlet /></main>   {/* será reemplazado por el Outlet */}
-            <footer><Footer /></footer>
-        </>
+        <div className="min-h-screen bg-slate-200 flex flex-col justify-between">
+            <div>
+                <nav><NavBar /></nav>
+                <main><Outlet /></main>
+            </div>
+            <div>
+                <footer><Footer /></footer>
+            </div>
+        </div>
     );
 };
 
