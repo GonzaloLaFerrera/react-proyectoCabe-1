@@ -1,5 +1,5 @@
-import { Https } from "@mui/icons-material"
-import { Avatar, Box, TextField, Typography } from "@mui/material"
+import { Https } from "@mui/icons-material";
+import { Avatar, Box, TextField, Typography } from "@mui/material";
 
 
 const Login = () => {
@@ -9,7 +9,7 @@ const Login = () => {
                 <Avatar sx={{ mx:'auto', bgcolor:'#6ddd63' }}>
                     <Https/>
                 </Avatar>
-                <Typography variant="h5" component='h1'>Login</Typography>
+                <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Login</Typography>
                 <Box sx={{ mt:4 }} component='form'>
                     <TextField
                         type="text"

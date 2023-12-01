@@ -24,6 +24,7 @@ PROYECTO CABE 1
         > Logout
 
 - Componentes
+    * El NavBar debería ser uno público y uno privado. Ya que dependiendo del ingreso con Login mostraría ciertos accesos. O bien puede pensarse el público no como un NavBar sino más bien como un header.
 
 
 

@@ -5,6 +5,7 @@ import Landing from "../pages/Landing";
 import Login from "../pages/Login";
 import Logout from "../pages/Logout";
 import NotFound from "../pages/NotFound";
+import Register from "../pages/Register";
 
 import LayoutPublic from "../layout/RootLayout";
 
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
             {
                 path:'/login',
                 element:<Login />,
+            },
+            {
+                path:'/register',
+                element:<Register />,
             },
             {
                 path:'/logout',
