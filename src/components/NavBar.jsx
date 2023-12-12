@@ -14,7 +14,7 @@ const NavBar = () => {
                 <NavLink to='/login'>Login</NavLink>
             </Button>
             <Button variant="contained">
-                <NavLink to='/landing'>Logout</NavLink>
+                <NavLink to='/'>Logout</NavLink>
             </Button>
         </nav>
     );
