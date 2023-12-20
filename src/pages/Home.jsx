@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import ToDoList from "../components/ToDoList";
 
 import ToDoCreate from "../components/ToDoCreate";
+import ToDoComputed from "../components/ToDoComputed";
 
 
 const initialExampleTodos = [
@@ -42,6 +43,13 @@ const Home = () => {
         setTodos(todos.map(todo => todo.id === id ? {...todo, complete:!todo.complete} : todo));
     };
 
+    const removeTodo = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
+
+    const computedItemsLeft = todos.filter(todo => !todo.complete).length;
+    
+
     return (
         <div className="min-h-screen bg-slate-400 bg-contain bg-no-repeat">
             {/* Header */}
@@ -63,7 +71,7 @@ const Home = () => {
                 
                 
                 <div className="rounded-md bg-white mt-8">
-                    <ToDoList todos={todos} updateTodo={updateTodo}/>
+                    <ToDoList todos={todos} updateTodo={updateTodo} removeTodo={removeTodo}/>
 
                     {/* <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
                         <button><IconCircle/></button>
@@ -87,10 +95,11 @@ const Home = () => {
                     </article> */}
                     
                     {/* Operaciones Computadas */}
-                    <section className="container flex mx-auto py-4 px-4 justify-between">
+                    <ToDoComputed computedItemsLeft={computedItemsLeft}/>
+                    {/* <section className="container flex mx-auto py-4 px-4 justify-between">
                         <span className="text-gray-400">5 items left</span>
                         <button className="text-gray-400">Clear Completed</button>
-                    </section>
+                    </section> */}
                 </div>
                 
                 {/* Selector de filtros */}

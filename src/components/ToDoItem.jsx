@@ -2,7 +2,7 @@ import IconCheck from "./icons/IconCheck";
 import IconCircle from "./icons/IconCircle";
 import IconCross from "./icons/IconCross";
 
-const ToDoItem = ({todo, updateTodo}) => {
+const ToDoItem = ({todo, updateTodo, removeTodo}) => {
 
     const {id, title, complete} = todo;
 
@@ -17,7 +17,7 @@ const ToDoItem = ({todo, updateTodo}) => {
                 }
             </button>
             <p className={`grow ${complete ? 'text-gray-400 line-through' : 'text-gray-600'}`}>{title}</p>
-            <button><IconCross/></button>
+            <button onClick={() => removeTodo(id)}><IconCross/></button>
         </article>
     );
 };
