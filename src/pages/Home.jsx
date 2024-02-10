@@ -5,6 +5,9 @@ import ToDoList from "../components/ToDoList";
 
 import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
+import { UseUserContext } from "../context/UserContext";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 const initialExampleTodos = [
@@ -29,6 +32,14 @@ const initialExampleTodos = [
 const Home = () => {
 
     const [todos, setTodos] = useState(initialExampleTodos); 
+    const { user, setUser } = UseUserContext();
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        setUser(false)
+        navigate('/')
+    };
 
     const createNewTodo = (title) => {
         const newTodo = {
@@ -60,46 +71,12 @@ const Home = () => {
             <main className="container mx-auto mt-8 px-4">
                 <ToDoCreate createNewTodo={createNewTodo}/>
                 
-                {/* <form className="flex items-center gap-4 overflow-hidden rounded-md bg-white py-4 px-4 mt-8">
-                    <button><IconCircle/></button>
-                    <input 
-                        className="w-full outline-none text-gray-300" 
-                        type="text" 
-                        placeholder="Create a new to do..." 
-                    />
-                </form> */}
-                
-                
                 <div className="rounded-md bg-white mt-8">
                     <ToDoList todos={todos} updateTodo={updateTodo} removeTodo={removeTodo}/>
-
-                    {/* <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                        <button><IconCircle/></button>
-                        <p className="grow text-gray-600">Complete online JS course</p>
-                        <button><IconCross /></button>
-                    </article>
-                    <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                        <button><IconCircle/></button>
-                        <p className="grow text-gray-600">Complete online JS course</p>
-                        <button><IconCross /></button>
-                    </article>
-                    <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                        <button><IconCircle/></button>
-                        <p className="grow text-gray-600">Complete online JS course</p>
-                        <button><IconCross /></button>
-                    </article>
-                    <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400">
-                        <button><IconCircle/></button>
-                        <p className="grow text-gray-600">Complete online JS course</p>
-                        <button><IconCross /></button>
-                    </article> */}
                     
                     {/* Operaciones Computadas */}
                     <ToDoComputed computedItemsLeft={computedItemsLeft}/>
-                    {/* <section className="container flex mx-auto py-4 px-4 justify-between">
-                        <span className="text-gray-400">5 items left</span>
-                        <button className="text-gray-400">Clear Completed</button>
-                    </section> */}
+                    
                 </div>
                 
                 {/* Selector de filtros */}
@@ -113,6 +90,15 @@ const Home = () => {
             </main>
 
             <p className="text-white text-center mt-8">Drag and Drop to re-order list</p>
+            {
+                user && (
+                    <>
+                        <p>Usuario Logueado!</p>
+                        <Button onClick={() => setUser(false)}>Logout</Button>
+                        <Button onClick={handleLogout}>Logout2</Button>
+                    </>
+                )
+            }
         </div>
     )
 };

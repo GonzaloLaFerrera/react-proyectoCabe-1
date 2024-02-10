@@ -8,6 +8,8 @@ import NotFound from "../pages/NotFound";
 import Register from "../pages/Register";
 
 import LayoutPublic from "../layout/RootLayout";
+import LayoutPrivate from "../layout/LayoutPrivate";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -21,10 +23,6 @@ export const router = createBrowserRouter([
                 errorElement:<NotFound />
             },
             {
-                path:'/home',
-                element:<Home />,              
-            },
-            {
                 path:'/login',
                 element:<Login />,
             },
@@ -35,7 +33,21 @@ export const router = createBrowserRouter([
             {
                 path:'/logout',
                 element:<Logout />, 
-            }
+            },
+            {
+                path:'/profile',
+                element: <Profile/>
+            },
+            {
+                path:'/home',
+                element:<LayoutPrivate />,     
+                children: [
+                    {
+                        index: true,
+                        element: <Home />
+                    },
+                ]         
+            },
         ],
     },
 ]);

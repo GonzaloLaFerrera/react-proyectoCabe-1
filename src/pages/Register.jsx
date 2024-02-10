@@ -52,7 +52,7 @@ const Register = () => {
                     placeholder='Ingrese su nombre...'
                     name="firstName"
                     id="firstName"
-                    label='firstName'
+                    label='Nombre'
                     fullWidth
                     sx={{ mb:3 }}
                 />
@@ -61,7 +61,7 @@ const Register = () => {
                     placeholder='Ingrese su apellido...'
                     name="lastName"
                     id="lastName"
-                    label='lastName'
+                    label='Apellido'
                     fullWidth
                     sx={{ mb:3 }}
                 />
@@ -70,7 +70,7 @@ const Register = () => {
                     placeholder="ejemplo@ejemplo.com"
                     name="email"
                     id="email"
-                    label='email'
+                    label='Email'
                     fullWidth
                     sx={{ mb:3 }}
                 />
@@ -79,7 +79,7 @@ const Register = () => {
                     placeholder="Abc123"
                     name="password"
                     id="password"
-                    label='password'
+                    label='Contraseña'
                     fullWidth
                     sx={{ mb:3 }}
                 />

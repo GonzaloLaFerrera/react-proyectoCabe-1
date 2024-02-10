@@ -3,11 +3,13 @@ import { Avatar, Box, TextField, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UseUserContext } from "../context/UserContext";
 
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const { setUser } = UseUserContext();
 
     const [state, setState] = useState({
         email: "",
@@ -23,9 +25,9 @@ const Login = () => {
         })
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         
-        return fetch("http://localhost:3000/users/login", {
+        const data = await fetch("http://127.0.0.1:3000/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,10 +36,13 @@ const Login = () => {
                 email: state.email,
                 password: state.password
             }),
-        }).then((data)=>{
-            console.log(data)
-            if(data.ok) navigate("/home");
-        })
+        });
+        console.log(data.json());
+        if (data.ok) {
+            setUser(true);
+            navigate("/home");
+            /* data.json(); */
+        }
     }
 
 
@@ -73,7 +78,7 @@ const Login = () => {
                 fullWidth 
                 variant="contained" 
                 onClick={handleClick}
-            >Ingresar</Button>
+                >Ingresar</Button>
 
             </Box>
         </>
