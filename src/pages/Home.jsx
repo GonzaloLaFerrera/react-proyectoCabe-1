@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../components/Header";
 import ToDoList from "../components/ToDoList";
@@ -35,6 +35,20 @@ const Home = () => {
     const { user, setUser } = UseUserContext();
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(user){
+            fetch("http://localhost:3000/user/profile", {
+                credentials: 'include'
+            })
+            .then(data => data.json())
+            .then(resp => {
+                console.log("estoy en useEffect", resp)
+                setTodos(resp.tasks)
+            }
+            )
+        }
+    }, [user])
 
     const handleLogout = () => {
         setUser(false)

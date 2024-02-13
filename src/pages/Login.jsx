@@ -25,24 +25,29 @@ const Login = () => {
         })
     }
 
-    const handleClick = async () => {
+    const handleClick = () => {
         
-        const data = await fetch("http://127.0.0.1:3000/users/login", {
+        
+        fetch("http://localhost:3000/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify({
                 email: state.email,
                 password: state.password
             }),
-        });
-        console.log(data.json());
-        if (data.ok) {
-            setUser(true);
-            navigate("/home");
-            /* data.json(); */
-        }
+        }).then(resp => resp.json())
+        .then(elem => {
+            console.log(elem)
+            if (elem) {
+                setUser(true);
+                navigate("/home");
+            }
+        })
+        
+        
     }
 
 
