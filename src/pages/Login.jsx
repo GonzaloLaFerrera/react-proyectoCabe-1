@@ -25,6 +25,7 @@ const Login = () => {
         })
     }
 
+    //ESTO HAY QUE LLEVARLO A UNA FUNCION O UN CUSTOM HOOK EN LA CARPETA SERVICES
     const handleClick = () => {
         
         
@@ -38,12 +39,14 @@ const Login = () => {
                 email: state.email,
                 password: state.password
             }),
-        }).then(resp => resp.json())
+        })
+        .then(resp => resp.json())
         .then(elem => {
             console.log(elem)
             if (elem) {
                 setUser(true);
                 navigate("/home");
+                //dispatch(loadUser(dataUser))
             }
         })
         
