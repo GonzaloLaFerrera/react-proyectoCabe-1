@@ -5,9 +5,12 @@ import ToDoList from "../components/ToDoList";
 
 import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
-import { UseUserContext } from "../context/UserContext";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+
+import fetchUser from "../services/fetchUser";
+import {loadUserTasks} from "../redux/userSlice";
 
 
 const initialExampleTodos = [
@@ -32,26 +35,29 @@ const initialExampleTodos = [
 const Home = () => {
 
     const [todos, setTodos] = useState(initialExampleTodos); 
-    const { user, setUser } = UseUserContext();
 
     const navigate = useNavigate();
+    
+    // ESTADOS GLOBALES
+    const userIsLogged = useSelector((state) => state.isLogged)
+    const tasks = useSelector((state) => state.user.tasks)
+
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
-        if(user){
-            fetch("http://localhost:3000/user/profile", {
-                credentials: 'include'
-            })
-            .then(data => data.json())
+        if(userIsLogged){
+            fetchUser()
             .then(resp => {
-                console.log("estoy en useEffect", resp)
-                setTodos(resp.tasks)
+                console.log('funciona igual', resp)
+                dispatch(loadUserTasks(resp.tasks))
             }
             )
         }
-    }, [user])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userIsLogged])
 
     const handleLogout = () => {
-        setUser(false)
         navigate('/')
     };
 
@@ -73,6 +79,8 @@ const Home = () => {
     };
 
     const computedItemsLeft = todos.filter(todo => !todo.complete).length;
+
+    console.log(tasks)
     
 
     return (
@@ -86,7 +94,7 @@ const Home = () => {
                 <ToDoCreate createNewTodo={createNewTodo}/>
                 
                 <div className="rounded-md bg-white mt-8">
-                    <ToDoList todos={todos} updateTodo={updateTodo} removeTodo={removeTodo}/>
+                    <ToDoList todos={tasks} updateTodo={updateTodo} removeTodo={removeTodo}/>
                     
                     {/* Operaciones Computadas */}
                     <ToDoComputed computedItemsLeft={computedItemsLeft}/>
@@ -105,10 +113,10 @@ const Home = () => {
 
             <p className="text-white text-center mt-8">Drag and Drop to re-order list</p>
             {
-                user && (
+                userIsLogged && (
                     <>
                         <p>Usuario Logueado!</p>
-                        <Button onClick={() => setUser(false)}>Logout</Button>
+                        {/* <Button onClick={() => setUser(false)}>Logout</Button> */}
                         <Button onClick={handleLogout}>Logout2</Button>
                     </>
                 )

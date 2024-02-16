@@ -1,18 +1,19 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { UseUserContext } from "../context/UserContext";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const LayoutPrivate = () => {
 
-    const { user } = UseUserContext();
     const navigate = useNavigate();
+    const userLogged = useSelector((state) => state.isLogged);
 
     useEffect(() => {
-        console.log(user)
-        if(!user) {
+        console.log(userLogged)
+        if(!userLogged) {
             navigate('/')
         }
-    }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userLogged]);
 
     return (
         <Outlet />

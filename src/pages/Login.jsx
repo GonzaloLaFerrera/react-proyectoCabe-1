@@ -3,13 +3,17 @@ import { Avatar, Box, TextField, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UseUserContext } from "../context/UserContext";
+import { userLogin } from "../services/userLogin";
+import { useDispatch } from "react-redux";
+import { setIsLogged } from "../redux/isLoggedSlice";
 
 
 const Login = () => {
 
     const navigate = useNavigate();
-    const { setUser } = UseUserContext();
+    
+    const dispatch = useDispatch();
+    
 
     const [state, setState] = useState({
         email: "",
@@ -27,28 +31,17 @@ const Login = () => {
 
     //ESTO HAY QUE LLEVARLO A UNA FUNCION O UN CUSTOM HOOK EN LA CARPETA SERVICES
     const handleClick = () => {
-        
-        
-        fetch("http://localhost:3000/users/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                email: state.email,
-                password: state.password
-            }),
-        })
-        .then(resp => resp.json())
-        .then(elem => {
-            console.log(elem)
-            if (elem) {
-                setUser(true);
+                
+        // eslint-disable-next-line no-unused-vars
+        userLogin(state.email, state.password)
+        .then(resp => {
+            if(resp.status === 200){
+                dispatch(setIsLogged(true))
+                console.log("Hola soy german")
+                //setUser(true);
                 navigate("/home");
-                //dispatch(loadUser(dataUser))
             }
-        })
+        }).catch(err => console.log(err))
         
         
     }

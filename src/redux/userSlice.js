@@ -4,6 +4,7 @@ const initialState = {
     firstName: "",
     lastName: "",
     email: "",
+    tasks: []
 };
 
 export const userSlice = createSlice ({
@@ -16,8 +17,11 @@ export const userSlice = createSlice ({
             state.lastName = lastName;
             state.email = email;
         },
+        loadUserTasks: (state, action) => {
+            state.tasks = action.payload
+        }
     }
 });
 
-export const { loadUser } = userSlice.actions;
+export const { loadUser, loadUserTasks } = userSlice.actions;
 export default userSlice.reducer;
