@@ -5,6 +5,6 @@ import isLoggedReducer from "./isLoggedSlice.js";
 export const store = configureStore({
     reducer: {
         user: userReducer, //slice user
-        isLogged: isLoggedReducer
+        isLogged: isLoggedReducer //slice logueo
     },
 });
