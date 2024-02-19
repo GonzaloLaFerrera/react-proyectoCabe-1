@@ -8,7 +8,7 @@ const NavBar = () => {
 
     const handleClickLogOut = () => {
         
-        return fetch("http://127.0.0.1:3000/user/logout", {
+        return fetch("http://localhost:3000/user/logout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -17,10 +17,10 @@ const NavBar = () => {
         }).then((data)=>{
             console.log(data)
             if(data.status !== 200){
-                console.log('Le estamos pifiando')
+                console.log('Estoy en el IF')
                 navigate("/")
             } 
-            navigate("/");  
+            // navigate("/");  
         });
     };
 
