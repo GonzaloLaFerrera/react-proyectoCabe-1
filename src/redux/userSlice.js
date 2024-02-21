@@ -19,9 +19,15 @@ export const userSlice = createSlice ({
         },
         loadUserTasks: (state, action) => {
             state.tasks = action.payload
+        },
+        logoutUser: (state) => {
+            state.firstName = "";
+            state.lastName = "";
+            state.email = "";
+            state.tasks = [];
         }
     }
 });
 
-export const { loadUser, loadUserTasks } = userSlice.actions;
+export const { loadUser, loadUserTasks, logoutUser} = userSlice.actions;
 export default userSlice.reducer;

@@ -13,6 +13,7 @@ import fetchUser from "../services/fetchUser";
 import {loadUserTasks} from "../redux/userSlice";
 
 
+
 const initialExampleTodos = [
     {
         id:1,
@@ -51,15 +52,11 @@ const Home = () => {
             .then(resp => {
                 console.log('funciona igual', resp)
                 dispatch(loadUserTasks(resp.tasks))
-            }
-            )
+            })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userIsLogged])
 
-    const handleLogout = () => {
-        navigate('/')
-    };
 
     const createNewTodo = (title) => {
         const newTodo = {
@@ -112,15 +109,6 @@ const Home = () => {
             </main>
 
             <p className="text-white text-center mt-8">Drag and Drop to re-order list</p>
-            {
-                userIsLogged && (
-                    <>
-                        <p>Usuario Logueado!</p>
-                        {/* <Button onClick={() => setUser(false)}>Logout</Button> */}
-                        <Button onClick={handleLogout}>Logout2</Button>
-                    </>
-                )
-            }
         </div>
     )
 };

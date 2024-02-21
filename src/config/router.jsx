@@ -45,9 +45,25 @@ export const router = createBrowserRouter([
                     {
                         index: true,
                         element: <Home />
-                    },
-                ]         
-            },
+                    }
+                ]
+            }
         ],
     },
 ]);
+
+/* 
+{
+    path:'/home',
+    element:<LayoutPrivate />,     
+    children: [
+        {
+            index: true,
+            element: <Home />
+        },
+        {
+            path:'home/profile',
+            element: <Profile/>
+        },
+    ]         
+} */

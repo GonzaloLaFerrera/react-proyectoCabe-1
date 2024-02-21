@@ -1,10 +1,14 @@
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from '../redux/userSlice'
+
 
 const NavBar = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleClickLogOut = () => {
         
@@ -16,6 +20,9 @@ const NavBar = () => {
             credentials: 'include'
         }).then((data)=>{
             console.log(data)
+            dispatch(logoutUser())
+            navigate('/logout')
+            //alert('Sesión Finalizada') //puede ser una page o un componente            
             if(data.status !== 200){
                 console.log('Estoy en el IF')
                 navigate("/")
