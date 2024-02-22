@@ -44,7 +44,7 @@ const Register = () => {
   
     return (
         <Box sx={{mt:8, maxWidth:'400px', mx:'auto'}}>
-            <Avatar sx={{ mx:'auto', bgcolor:'#b063dd' }} />   
+            <Avatar sx={{ mx:'auto', bgcolor:'#767477' }} />   
             <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Register</Typography>
             <Box sx={{ mt:4 }} component='form'  onChange={handleChange}>
                 <TextField
@@ -54,7 +54,7 @@ const Register = () => {
                     id="firstName"
                     label='Nombre'
                     fullWidth
-                    sx={{ mb:3 }}
+                    sx={{ mb:3, bgcolor:'#f5f1f1' }}
                 />
                 <TextField
                     type="text"
@@ -63,7 +63,7 @@ const Register = () => {
                     id="lastName"
                     label='Apellido'
                     fullWidth
-                    sx={{ mb:3 }}
+                    sx={{ mb:3, bgcolor:'#f5f1f1' }}
                 />
                 <TextField
                     type="text"
@@ -72,7 +72,7 @@ const Register = () => {
                     id="email"
                     label='Email'
                     fullWidth
-                    sx={{ mb:3 }}
+                    sx={{ mb:3, bgcolor:'#f5f1f1' }}
                 />
                 <TextField 
                     type="password"
@@ -81,14 +81,17 @@ const Register = () => {
                     id="password"
                     label='Contraseña'
                     fullWidth
-                    sx={{ mb:3 }}
+                    sx={{ mb:3, bgcolor:'#f5f1f1' }}
                 />
             </Box>
-            <Button 
+            <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 ml-36" onClick={handleClick}>
+                REGISTRARSE
+            </button>
+            {/* <Button 
                 fullWidth 
                 variant="contained" 
                 onClick={handleClick}
-            >Registrar</Button>
+            >Registrar</Button> */}
         </Box>
     );
 };

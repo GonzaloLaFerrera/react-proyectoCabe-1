@@ -29,41 +29,67 @@ export const router = createBrowserRouter([
             {
                 path:'/register',
                 element:<Register />,
-            },
-            {
-                path:'/logout',
-                element:<Logout />, 
-            },
-            {
-                path:'/profile',
-                element: <Profile/>
-            },
-            {
-                path:'/home',
-                element:<LayoutPrivate />,     
-                children: [
-                    {
-                        index: true,
-                        element: <Home />
-                    }
-                ]
             }
-        ],
+        ]
+    },
+    {
+        element:<LayoutPrivate />,
+        children:[
+            {
+                path:'home',
+                element:<Home />
+            },
+            {
+                path:'profile',
+                element: <Profile/> 
+            },
+            {
+                path:'logout',
+                element:<Logout />
+            }
+        ]
     },
 ]);
 
-/* 
-{
-    path:'/home',
-    element:<LayoutPrivate />,     
-    children: [
+
+
+/* {
+    path:'/',
+    element:<LayoutPublic />,
+    errorElement:<NotFound />,
+    children:[
         {
             index: true,
-            element: <Home />
+            element:<Landing />,
+            errorElement:<NotFound />
         },
         {
-            path:'home/profile',
+            path:'/login',
+            element:<Login />,
+        },
+        {
+            path:'/register',
+            element:<Register />,
+        },
+        {
+            path:'/logout',
+            element:<Logout />, 
+        },
+        {
+            path:'/profile',
             element: <Profile/>
         },
-    ]         
-} */
+        {
+            path:'/home',
+            element:<LayoutPrivate />,     
+            children: [
+                {
+                    index: true,
+                    element: <Home />
+                }
+            ]
+        }
+    ],
+},
+]); */
+

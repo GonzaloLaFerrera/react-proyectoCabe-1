@@ -50,7 +50,7 @@ const Login = () => {
     return (
         <>
             <Box sx={{mt:8, maxWidth:'400px', mx:'auto'}}>
-                <Avatar sx={{ mx:'auto', bgcolor:'#6ddd63' }}>
+                <Avatar sx={{ mx:'auto', bgcolor:'#767477' }}>
                     <Https/>
                 </Avatar>
                 <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Login</Typography>
@@ -60,26 +60,30 @@ const Login = () => {
                         placeholder="ejemplo@ejemplo.com"
                         name="email"
                         id="email"
-                        label='email'
+                        label='Email'
                         fullWidth
-                        sx={{ mb:3 }}
+                        sx={{ mb:3, bgcolor:'#f5f1f1' }}
                     />
                     <TextField
                         type="password"
                         placeholder="Abc123"
                         name="password"
                         id="password"
-                        label='password'
+                        label='Password'
                         fullWidth
-                        sx={{ mb:3 }}
+                        sx={{ mb:3, bgcolor:'#f5f1f1' }}
                     />
                 </Box>
 
+                <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 ml-36" onClick={handleClick}>
+                    INGRESAR
+                </button>
+{/* 
                 <Button 
                 fullWidth 
                 variant="contained" 
                 onClick={handleClick}
-                >Ingresar</Button>
+                >Ingresar</Button> */}
 
             </Box>
         </>

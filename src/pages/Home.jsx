@@ -81,7 +81,7 @@ const Home = () => {
     
 
     return (
-        <div className="min-h-screen bg-slate-400 bg-contain bg-no-repeat">
+        <div className="h-[250px] w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-bottom mt-6">
             {/* Header */}
             <Header />
             
