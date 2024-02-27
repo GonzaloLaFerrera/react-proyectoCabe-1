@@ -27,7 +27,6 @@ const NavBar = () => {
                 console.log('Estoy en el IF')
                 navigate("/")
             } 
-            // navigate("/");  
         });
     };
 

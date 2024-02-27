@@ -7,15 +7,15 @@ import Footer from "../components/Footer";
 const LayoutPrivate = () => {
 
     const navigate = useNavigate();
-    const userLogged = useSelector((state) => state.isLogged);
+    const {userIsLogged} = useSelector((state) => state.isLogged);
 
     useEffect(() => {
-        console.log(userLogged, 'estamos en el layout privado')
-        if(!userLogged) {
+        console.log(userIsLogged, 'estamos en el layout privado')
+        if(!userIsLogged) {
             navigate('/')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userLogged]);
+    }, [userIsLogged]);
 
     return (
     

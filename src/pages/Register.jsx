@@ -1,11 +1,26 @@
 import { Avatar, Box, TextField, Typography } from "@mui/material";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
+
+import { useSelector } from "react-redux";
 
 const Register = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    
+    /* const {isLogged} = useSelector((state) => state.isLogged); */
+    const {userIsLogged} = useSelector((state) => state.isLogged)
+
+    console.log('El Console del ESTADO LOGUEADO EN REGISTRO', userIsLogged);
+
+    useRedirectActiveUser(userIsLogged, '/home');
+
+    useEffect(() => {
+        console.log('ESTOY VIENDOTE!!!!', userIsLogged)
+    },[userIsLogged]);  
 
     const [state, setState] = useState({
         firstName: "",

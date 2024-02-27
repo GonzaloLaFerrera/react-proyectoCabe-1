@@ -4,8 +4,8 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../services/userLogin";
-import { useDispatch } from "react-redux";
-import { setIsLogged } from "../redux/isLoggedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import isLoggedSlice, { setIsLogged } from "../redux/isLoggedSlice";
 
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
     const navigate = useNavigate();
     
     const dispatch = useDispatch();
+    const {isLogged} = useSelector((state) => state.isLogged);
     
 
     const [state, setState] = useState({
@@ -37,7 +38,7 @@ const Login = () => {
         .then(resp => {
             if(resp.status === 200){
                 dispatch(setIsLogged(true))
-                console.log("Hola soy german")
+                console.log('El console del LOGUEO', isLogged)
                 //setUser(true);
                 navigate("/home");
             }

@@ -31,3 +31,8 @@ export const userSlice = createSlice ({
 
 export const { loadUser, loadUserTasks, logoutUser} = userSlice.actions;
 export default userSlice.reducer;
+
+
+/* if (!isLogged) {
+    dispatch(logoutUser())
+} */

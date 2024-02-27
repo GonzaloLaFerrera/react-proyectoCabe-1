@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import fetchUser from "../services/fetchUser";
 import {loadUserTasks} from "../redux/userSlice";
 
+import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
+
 
 
 const initialExampleTodos = [
@@ -40,7 +42,7 @@ const Home = () => {
     const navigate = useNavigate();
     
     // ESTADOS GLOBALES
-    const userIsLogged = useSelector((state) => state.isLogged)
+    const {userIsLogged} = useSelector((state) => state.isLogged)
     const tasks = useSelector((state) => state.user.tasks)
 
     const dispatch = useDispatch();
@@ -50,7 +52,8 @@ const Home = () => {
         if(userIsLogged){
             fetchUser()
             .then(resp => {
-                console.log('funciona igual', resp)
+                console.log('funciona igual', resp, userIsLogged)
+                
                 dispatch(loadUserTasks(resp.tasks))
             })
         }
