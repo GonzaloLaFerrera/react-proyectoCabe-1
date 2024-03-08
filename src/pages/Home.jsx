@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 
 import Header from "../components/Header";
@@ -29,7 +30,7 @@ const initialExampleTodos = [
     },
     {
         id:3,
-        title:'Alimentar a las gatas',
+        title:'Alimentar a los gaturros',
         complete:true
     }
 ];
