@@ -42,23 +42,24 @@ const Home = () => {
     const navigate = useNavigate();
     
     // ESTADOS GLOBALES
-    const {userIsLogged} = useSelector((state) => state.isLogged)
+    const {isLogged} = useSelector((state) => state.isLogged)
     const tasks = useSelector((state) => state.user.tasks)
 
     const dispatch = useDispatch();
 
 
     useEffect(() => {
-        if(userIsLogged){
+        if(isLogged){
             fetchUser()
             .then(resp => {
-                console.log('funciona igual', resp, userIsLogged)
+                console.log('funciona igual', resp, isLogged)
                 
                 dispatch(loadUserTasks(resp.tasks))
+                
             })
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userIsLogged])
+    }, [isLogged])
 
 
     const createNewTodo = (title) => {
