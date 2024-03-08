@@ -12,6 +12,7 @@ const LayoutPrivate = () => {
     useEffect(() => {
         console.log(userIsLogged, 'estamos en el layout privado')
         if(!userIsLogged) {
+            console.log('estoy en el IF de NO USUARIO')
             navigate('/')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

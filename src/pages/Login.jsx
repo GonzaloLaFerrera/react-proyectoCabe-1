@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../services/userLogin";
 import { useDispatch, useSelector } from "react-redux";
-import isLoggedSlice, { setIsLogged } from "../redux/isLoggedSlice";
+import { setIsLogged } from "../redux/isLoggedSlice";
 
 
 const Login = () => {
@@ -40,12 +40,14 @@ const Login = () => {
                 dispatch(setIsLogged(true))
                 console.log('El console del LOGUEO', isLogged)
                 //setUser(true);
-                navigate("/home");
+                navigate("home");
             }
         }).catch(err => console.log(err))
         
         
     }
+
+    console.log('El console del LOGUEO por fuera', isLogged)
 
 
     return (
