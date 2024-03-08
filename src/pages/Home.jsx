@@ -24,7 +24,7 @@ const initialExampleTodos = [
     },
     {
         id:2,
-        title:'Regar las plantas',
+        title:'Salir a comprar la fruta',
         complete:true
     },
     {
