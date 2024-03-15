@@ -52,7 +52,7 @@ const Home = () => {
         if(isLogged){
             fetchUser()
             .then(resp => {
-                console.log('funciona igual', resp, isLogged)
+                console.log('el console del logueo en HOME', resp, isLogged)
                 
                 dispatch(loadUserTasks(resp.tasks))
                 
