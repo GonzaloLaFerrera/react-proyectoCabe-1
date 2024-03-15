@@ -33,19 +33,20 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path:'user',
+        path:'/user',
         element:<LayoutPrivate />,
+        errorElement:<NotFound />,
         children:[
             {
-                path:'home',
+                index: true,
                 element:<Home />
             },
             {
-                path:'profile',
+                path:'/user/profile',
                 element: <Profile/> 
             },
             {
-                path:'logout',
+                path:'/user/logout',
                 element:<Logout />
             }
         ]

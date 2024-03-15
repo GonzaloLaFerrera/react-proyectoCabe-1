@@ -7,16 +7,36 @@ import Footer from "../components/Footer";
 const LayoutPrivate = () => {
 
     const navigate = useNavigate();
-    const {userIsLogged} = useSelector((state) => state.isLogged);
+    const {isLogged} = useSelector((state) => state.isLogged)
 
-    useEffect(() => {
+/*     useEffect(() => {
         console.log(userIsLogged, 'estamos en el layout privado')
         if(!userIsLogged) {
             console.log('estoy en el IF de NO USUARIO')
             navigate('/')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userIsLogged]);
+    }, [userIsLogged]); */
+
+    //SIN PROTECCION (FUNCIONA PERFECTAMENTE) <<<<<<<<<<<<<<<<<<---------------------------------
+    /* useEffect(() => {
+        console.log(isLogged, "chequeando estado de Logueo de Usuario")
+        navigate('/user')
+    }, []); */
+
+    useEffect(() => {
+        console.log(isLogged, "chequeando estado de Logueo de Usuario")
+        if(isLogged === false) {
+            console.log("EL USUARIO NO ESTA LOGUEADO! TE REDIRIJO DESDE EL LAYOUT PRIVADO!")
+            navigate('/')
+        } else {
+            console.log("Entro al ELSE")
+            navigate('/user')
+        }
+         
+    }, [isLogged]);
+
+    console.log(isLogged, "chequeando por fuera del UseEffect")
 
     return (
     

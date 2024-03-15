@@ -40,7 +40,7 @@ const Login = () => {
                 dispatch(setIsLogged(true))
                 console.log('El console del LOGUEO', isLogged)
                 //setUser(true);
-                navigate("home");
+                navigate("/user");
             }
         }).catch(err => console.log(err))
         

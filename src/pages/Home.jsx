@@ -24,7 +24,7 @@ const initialExampleTodos = [
     },
     {
         id:2,
-        title:'Regar las plantas',
+        title:'Salir a comprar la fruta',
         complete:true
     },
     {
@@ -52,7 +52,7 @@ const Home = () => {
         if(isLogged){
             fetchUser()
             .then(resp => {
-                console.log('funciona igual', resp, isLogged)
+                console.log('el console del logueo en HOME', resp, isLogged)
                 
                 dispatch(loadUserTasks(resp.tasks))
                 

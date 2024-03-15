@@ -9,18 +9,20 @@ const Profile = () => {
 
     /* const {data, loading, error} = useFetch('http://127.0.0.1:3000/users/login') */
     const userData = useSelector((state) => state.user)
-    const userIsLogged = useSelector((state) => state.isLogged)
+    /* const userIsLogged = useSelector((state) => state.isLogged) */
+    const {isLogged} = useSelector((state) => state.isLogged)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(userIsLogged){
+        if(isLogged){
             fetchUser()
             .then(resp => {
                 console.log('PROBANDO PROFILE', resp)
+                console.log('PROBANDO LOGEUO', isLogged)
                 dispatch(loadUser(resp))
             })
         }
-    }, [userIsLogged]);
+    }, [isLogged]);
 
     return (
         <div className="flex flex-col items-center mt-8">
@@ -38,7 +40,7 @@ const Profile = () => {
                         <Link to={''}>GUARDAR</Link> 
                     </button>
                     <button className="h-[55px] w-[84px] rounded-md bg-[#9b9292] text-black text-sm font-semibold px-2 py-4 border-[1px] border-[#afa5a5] hover:shadow-lg hover:cursor-pointer hover:bg-[#686060]">
-                        <Link to={'/home'}>VOLVER</Link> 
+                        <Link to={'/user'}>VOLVER</Link> 
                     </button>
                 </div>
                 
