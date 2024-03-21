@@ -52,7 +52,7 @@ const Login = () => {
 
     return (
         <>
-            <Box sx={{mt:8, maxWidth:'400px', mx:'auto'}}>
+            <Box sx={{mt:8, maxWidth:'400px', mx:2}}>
                 <Avatar sx={{ mx:'auto', bgcolor:'#767477' }}>
                     <Https/>
                 </Avatar>

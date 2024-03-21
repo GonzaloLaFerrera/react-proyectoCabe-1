@@ -58,10 +58,10 @@ const Register = () => {
     }
   
     return (
-        <Box sx={{mt:8, maxWidth:'400px', mx:'auto'}}>
+        <Box sx={{paddingTop:6, maxWidth:'400px', mx:'auto'}}>
             <Avatar sx={{ mx:'auto', bgcolor:'#767477' }} />   
             <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Register</Typography>
-            <Box sx={{ mt:4 }} component='form'  onChange={handleChange}>
+            <Box sx={{ mt:2, mx:2 }} component='form'  onChange={handleChange}>
                 <TextField
                     type="text"
                     placeholder='Ingrese su nombre...'
@@ -99,7 +99,7 @@ const Register = () => {
                     sx={{ mb:3, bgcolor:'#f5f1f1' }}
                 />
             </Box>
-            <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 ml-36" onClick={handleClick}>
+            <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-36" onClick={handleClick}>
                 REGISTRARSE
             </button>
             {/* <Button 
