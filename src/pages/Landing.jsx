@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Landing = () => {
     return(
         <section className="container flex flex-col gap-10 items-center">
-                <div className="bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] w-full mt-10 ">
-                    <h1 className="font-bold text-center text-2xl mt-10 mb-20">Bienvenidos a "P R O Y E C T O  C A B E"</h1>
+                <div className="bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] w-full mt-10  ">
+                    <h1 className="font-bold text-center text-xl mt-14 mb-20">Bienvenidos a "P R O Y E C T O  C A B E"</h1>
                     {/* <Link to='/login'>¿Tenes una cuenta? Inicia Sesión.</Link>
                     <Link to='/register'>¿No tenes cuenta? Regístrate.</Link> */}
                 </div>

@@ -10,6 +10,7 @@ import Register from "../pages/Register";
 import LayoutPublic from "../layout/RootLayout";
 import LayoutPrivate from "../layout/LayoutPrivate";
 import Profile from "../pages/Profile";
+import TodoDetail from "../pages/TodoDetail";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path:'/user/logout',
                 element:<Logout />
+            },
+            {
+                path:'/user/taskDetail',
+                element: <TodoDetail />
             }
         ]
     },

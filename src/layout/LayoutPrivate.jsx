@@ -40,7 +40,7 @@ const LayoutPrivate = () => {
 
     return (
     
-        <div className="min-h-screen bg-[#c1bcc2] flex flex-col justify-between">
+        <div className="min-h-screen bg-[#c1bcc2]  flex flex-col justify-between"> {/* bg-black */}
             <div>
                 <nav><NavBar /></nav>
                 <main><Outlet /></main>

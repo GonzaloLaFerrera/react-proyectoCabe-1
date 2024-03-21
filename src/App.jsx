@@ -36,7 +36,7 @@ const App = () => {
             {/* Cuerpo de la APP */}
             {/* debería pasarle el ItemList.jsx y pasarle los todos como props */}
             
-            <main className="container mx-auto mt-8 px-4">
+            <main className="container mx-auto mt-8 px-4 min-h-screen">
                 <form className="flex items-center gap-4 overflow-hidden rounded-md bg-white py-4 px-4 mt-8">
                     <button><IconCircle/></button>
                     <input className="w-full outline-none text-gray-300" type="text" placeholder="Create a new to do..." />
