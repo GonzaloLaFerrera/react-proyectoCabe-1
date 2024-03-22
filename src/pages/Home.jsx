@@ -8,7 +8,7 @@ import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import fetchUser from "../services/fetchUser";
 import {loadUserTasks} from "../redux/userSlice";
@@ -25,7 +25,7 @@ const initialExampleTodos = [
     },
     {
         id:2,
-        title:'Regar las plantas',
+        title:'Salir a comprar la fruta',
         complete:true
     },
     {
@@ -53,7 +53,7 @@ const Home = () => {
         if(isLogged){
             fetchUser()
             .then(resp => {
-                console.log('funciona igual', resp, isLogged)
+                console.log('el console del logueo en HOME', resp, isLogged)
                 
                 dispatch(loadUserTasks(resp.tasks))
                 
@@ -86,7 +86,7 @@ const Home = () => {
     
 
     return (
-        <div className="h-[250px] w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-bottom mt-6">
+        <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-10 mb-[100%] flex flex-col items-center ">
             {/* Header */}
             <Header />
             
@@ -114,6 +114,9 @@ const Home = () => {
             </main>
 
             <p className="text-white text-center mt-8">Drag and Drop to re-order list</p>
+            <button className="h-20 w-20 rounded-md bg-blue-500 text-white mt-4 px-6 py-4 ">
+                    <Link to={'/user/taskDetail'}>Task Detail</Link>
+            </button>
         </div>
     )
 };
