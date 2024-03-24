@@ -8,10 +8,11 @@ import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
-import { useNavigate, Link } from "react-router-dom";
+// import { useNavigate, Link } from "react-router-dom";
 
-import fetchUser from "../services/fetchUser";
-import {loadUserTasks} from "../redux/userSlice";
+import fetchTasksFromUser from "../services/fetchTasksFromUser";
+
+import { loadUserTasks } from "../redux/userSlice";
 
 import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
 
@@ -39,8 +40,6 @@ const initialExampleTodos = [
 const Home = () => {
 
     const [todos, setTodos] = useState(initialExampleTodos); 
-
-    const navigate = useNavigate();
     
     // ESTADOS GLOBALES
     const {isLogged} = useSelector((state) => state.isLogged)
@@ -51,16 +50,27 @@ const Home = () => {
 
     useEffect(() => {
         if(isLogged){
-            fetchUser()
-            .then(resp => {
-                console.log('el console del logueo en HOME', resp, isLogged)
+            // fetchUser()
+            // .then(data => {
+            //     console.log("USER", data)
+            //     dispatch(loadUser(data));
                 
-                dispatch(loadUserTasks(resp.tasks))
-                
+            // })
+            // .catch(err => console.log(err));
+            
+            
+            fetchTasksFromUser()
+            .then(resp => {    
+                console.log("TASKS", resp)          
+                dispatch(loadUserTasks(resp))
             })
+            .catch(err => console.log(err));
+                //ACA CAMBIÉ EL FETCH A LAS TAREAS DEL USUARIO (AHORA LO HACEMOS DE FORMA INDEPENDIENTE A LA INFO DEL USUARIO, PARA TENER LA POSIBILIDAD DE PAGINAR
+                // LA LLAMADA A PROFILE SE HACE CUANDO SE LOGUEA
+    
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged])
+    }, [isLogged]);
 
 
     const createNewTodo = (title) => {
@@ -81,10 +91,9 @@ const Home = () => {
     };
 
     const computedItemsLeft = todos.filter(todo => !todo.complete).length;
-
-    console.log(tasks)
     
 
+    console.log(tasks)
     return (
         <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-10 mb-[100%] flex flex-col items-center ">
             {/* Header */}
@@ -113,10 +122,13 @@ const Home = () => {
                 </section>
             </main>
 
+
+            {/* Gonza, este botón en realidad tiene que ser la tarea, asi que lo muevo
+
             <p className="text-white text-center mt-8">Drag and Drop to re-order list</p>
             <button className="h-20 w-20 rounded-md bg-blue-500 text-white mt-4 px-6 py-4 ">
                     <Link to={'/user/taskDetail'}>Task Detail</Link>
-            </button>
+            </button> */}
         </div>
     )
 };
