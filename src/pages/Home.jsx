@@ -15,6 +15,7 @@ import fetchTasksFromUser from "../services/fetchTasksFromUser";
 import { loadUserTasks } from "../redux/userSlice";
 
 import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
+import fetchDeleteTask from "../services/fetchDeleteTask";
 
 
 
@@ -62,7 +63,7 @@ const Home = () => {
             fetchTasksFromUser()
             .then(resp => {    
                 console.log("TASKS", resp)          
-                dispatch(loadUserTasks(resp))
+                dispatch(loadUserTasks(resp.docs))
             })
             .catch(err => console.log(err));
                 //ACA CAMBIÉ EL FETCH A LAS TAREAS DEL USUARIO (AHORA LO HACEMOS DE FORMA INDEPENDIENTE A LA INFO DEL USUARIO, PARA TENER LA POSIBILIDAD DE PAGINAR
@@ -87,13 +88,24 @@ const Home = () => {
     };
 
     const removeTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+        // setTodos(todos.filter(todo => todo.id !== id));
+        console.log("click en eliminar tarea", id)
+        fetchDeleteTask(id)
+        .then(resp => {
+            if(resp.status === 200){
+                fetchTasksFromUser()
+                .then(resp => {    
+                    console.log("Update TASKS", resp)          
+                    dispatch(loadUserTasks(resp.docs))
+                })
+                .catch(err => console.log(err)); 
+            }
+        });
     };
 
     const computedItemsLeft = todos.filter(todo => !todo.complete).length;
     
 
-    console.log(tasks)
     return (
         <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-10 mb-[100%] flex flex-col items-center ">
             {/* Header */}
