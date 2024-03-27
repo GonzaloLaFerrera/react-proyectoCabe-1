@@ -4,7 +4,8 @@ const initialState = {
     firstName: "",
     lastName: "",
     email: "",
-    tasks: []
+    tasks: [],
+    taskDetail: {}
 };
 
 export const userSlice = createSlice ({
@@ -20,16 +21,20 @@ export const userSlice = createSlice ({
         loadUserTasks: (state, action) => {
             state.tasks = action.payload
         },
+        loadDetailTask: (state, action) => {
+            state.taskDetail = action.payload
+        },
         logoutUser: (state) => {
             state.firstName = "";
             state.lastName = "";
             state.email = "";
             state.tasks = [];
+            state.taskDetail = {};
         }
     }
 });
 
-export const { loadUser, loadUserTasks, logoutUser} = userSlice.actions;
+export const { loadUser, loadUserTasks, loadDetailTask, logoutUser} = userSlice.actions;
 export default userSlice.reducer;
 
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
