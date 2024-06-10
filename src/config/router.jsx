@@ -11,6 +11,7 @@ import LayoutPublic from "../layout/RootLayout";
 import LayoutPrivate from "../layout/LayoutPrivate";
 import Profile from "../pages/Profile";
 import TodoDetail from "../pages/TodoDetail";
+import TodoCreation from "../pages/TodoCreation";
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
             {
                 path:'/user/taskDetail',
                 element: <TodoDetail />
+            },
+            {
+                path:'/user/todoCreation',
+                element: <TodoCreation />
             }
         ]
     },

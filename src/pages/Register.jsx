@@ -1,5 +1,4 @@
 import { Avatar, Box, TextField, Typography } from "@mui/material";
-import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +10,6 @@ const Register = () => {
 
     const navigate = useNavigate();
     
-    /* const {isLogged} = useSelector((state) => state.isLogged); */
     const {userIsLogged} = useSelector((state) => state.isLogged)
 
     console.log('El Console del ESTADO LOGUEADO EN REGISTRO', userIsLogged);
