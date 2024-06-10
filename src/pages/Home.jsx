@@ -8,6 +8,7 @@ import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
+import { NavLink } from "react-router-dom";
 // import { useNavigate, Link } from "react-router-dom";
 
 import fetchTasksFromUser from "../services/fetchTasksFromUser";
@@ -114,6 +115,11 @@ const Home = () => {
 
             {/* Cuerpo de la APP */}
             <main className="container mx-auto mt-8 px-4">
+                {/* Boton de Prueba para Creacion de Tarea Nueva */}
+                <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10}}>
+                    <NavLink to='/user/todoCreation'>Crear nueva tarea</NavLink>
+                </Button>
+
                 <ToDoCreate createNewTodo={createNewTodo}/>
                 
                 <div className="rounded-md bg-white mt-8">
