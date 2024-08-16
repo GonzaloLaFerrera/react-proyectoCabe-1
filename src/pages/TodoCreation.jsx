@@ -30,7 +30,7 @@ const TodoCreation = () => {
             console.log("Nos dejo pasar a la creacion", isLogged)
             
         }
-    }, [isLogged]);
+    }, [/* isLogged */]);
 
     /* const createNewTodo = (e) => {
         e.preventDefault()
@@ -44,13 +44,57 @@ const TodoCreation = () => {
     };
  */
 
-    /* async */ async function createNewTodo() {
+    async function createNewTodo() {
+
+        //Depuración Front Propia
+        try {
+            const { title, description, deadline } = stateForm;
+            console.log('funciona el submiteo en consola');
+            console.log('DATOS DEL FORMULARIO')
+            console.log("Titulo:", title )
+            console.log("Descripcion:", description)
+            console.log("Vencimiento:", deadline)
+            navigate('/user');
+        } catch (error) {
+            console.error("Error creando tarea:", error);
+        }
+
         
+        //Posible Solucion GOOGLE GEMINI
+        /* try {
+            const response = await fetch("http://localhost:3000/user/tasks/new", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    title: stateForm.title,
+                    description: stateForm.description,
+                    deadline: stateForm.deadline,
+                }),
+            });
+
+            if (response.ok) {
+                //Manejo de la respuesta exitosa
+                console.log("Hemos creado la Tarea para UD!")
+                console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
+                console.log(response)
+                navigate('/user')
+            } else {
+                throw new Error(`Error creando tarea: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error("Error creando tarea:", error);
+        } */
+
+
+        //Pruebas de Soluciones Propias
         /* e.preventDefault()
         dispatch(setIsLogged(true)) */
-        console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
+        /* console.log("Estado del Logueo de Usuario en CreateTask",isLogged) */
 
-        return fetch(`http://localhost:3000/user/tasks/new`, {
+        /* return fetch("http://localhost:3000/user/tasks/new", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -64,14 +108,14 @@ const TodoCreation = () => {
         }).then((data) => {
             dispatch(setIsLogged(true))
             console.log("Hemos creado la Tarea para UD!")
+            console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
             console.log(data)
             if(data.ok) navigate('/user')
-        }).catch(error => console.log(error))
-    };
+        }).catch(error => console.log(error))*/
+    }; 
 
 
     const handleChangeCreation = (e) => {
-        e.preventDefault()
         setStateForm((prev) => {
             return {
                 ...prev,
