@@ -45,7 +45,7 @@ const Home = () => {
     
     // ESTADOS GLOBALES
     const {isLogged} = useSelector((state) => state.isLogged)
-    const tasks = useSelector((state) => state.user.tasks)
+    const {tasks} = useSelector((state) => state.user)
 
     const dispatch = useDispatch();
 
