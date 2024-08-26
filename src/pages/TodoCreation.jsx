@@ -24,13 +24,7 @@ const TodoCreation = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() =>{
-        if(isLogged){
-            
-            console.log("Nos dejo pasar a la creacion", isLogged)
-            
-        }
-    }, [/* isLogged */]);
+    
 
     /* const createNewTodo = (e) => {
         e.preventDefault()
@@ -41,27 +35,28 @@ const TodoCreation = () => {
             navigate('/home')
         })
         .catch(err => console.log(err));
-    };
- */
+        };
+        */
+       
+       async function createNewTodo(e) {
+           e.preventDefault()
+           
+           //Depuración Front Propia
+           try {
+               const { title, description, deadline } = stateForm;
+               console.log('funciona el submiteo en consola');
+               console.log('DATOS DEL FORMULARIO')
+               console.log("Titulo:", title )
+               console.log("Descripcion:", description)
+               console.log("Vencimiento:", deadline)
+               // navigate('/user');
+           } catch (error) {
+               console.error("Error creando tarea:", error);
+           }
 
-    async function createNewTodo() {
-
-        //Depuración Front Propia
+           //Posible Solucion GOOGLE GEMINI
         try {
-            const { title, description, deadline } = stateForm;
-            console.log('funciona el submiteo en consola');
-            console.log('DATOS DEL FORMULARIO')
-            console.log("Titulo:", title )
-            console.log("Descripcion:", description)
-            console.log("Vencimiento:", deadline)
-            navigate('/user');
-        } catch (error) {
-            console.error("Error creando tarea:", error);
-        }
-
-        
-        //Posible Solucion GOOGLE GEMINI
-        /* try {
+            
             const response = await fetch("http://localhost:3000/user/tasks/new", {
                 method: "POST",
                 headers: {
@@ -76,6 +71,8 @@ const TodoCreation = () => {
             });
 
             if (response.ok) {
+                /* navigate('/user')
+                console.log('La respuesta del servidor esta OK y la tarea fue CREADA!') */
                 //Manejo de la respuesta exitosa
                 console.log("Hemos creado la Tarea para UD!")
                 console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
@@ -86,7 +83,10 @@ const TodoCreation = () => {
             }
         } catch (error) {
             console.error("Error creando tarea:", error);
-        } */
+        }
+
+
+        
 
 
         //Pruebas de Soluciones Propias
@@ -128,7 +128,7 @@ const TodoCreation = () => {
         <section>
             <Typography variant="h1" component='h1' sx={{ textAlign:'center', mt:2}}>Crea tu Tarea</Typography>
             <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Completa los campos para crear tu tarea</Typography>
-            <Box sx={{ mt:2, mx:2 }} component='form' onChange={handleChangeCreation}>
+            <Box sx={{ mt:2, mx:2 }} component='form' onChange={handleChangeCreation} onSubmit={createNewTodo}>
                 {/* Titulo */}
                 <TextField
                     type="text"
@@ -177,7 +177,7 @@ const TodoCreation = () => {
                     type="submit"
                     onSubmit={() => console.log("El Logueo del User al Clickear", isLogged)}
                 >Crear Tarea</Button> */}
-                <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-36" onClick={createNewTodo}>
+                <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-36" /* onClick={createNewTodo} */>
                 Crear Tarea
                 </button>
             </Box>
