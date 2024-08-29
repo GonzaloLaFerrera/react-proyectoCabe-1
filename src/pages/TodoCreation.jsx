@@ -126,8 +126,8 @@ const TodoCreation = () => {
 
     return(
         <section>
-            <Typography variant="h1" component='h1' sx={{ textAlign:'center', mt:2}}>Crea tu Tarea</Typography>
-            <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Completa los campos para crear tu tarea</Typography>
+            <Typography variant="h2" component='h1' sx={{ textAlign:'center', mt:2, fontWeight: 'bold', fontFamily:"sans-serif"}}>Crea tu Tarea</Typography>
+            <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2, fontFamily:"sans-serif"}}>Completa los campos para crear tu tarea de forma personalizada</Typography>
             <Box sx={{ mt:2, mx:2 }} component='form' onChange={handleChangeCreation} onSubmit={createNewTodo}>
                 {/* Titulo */}
                 <TextField
@@ -137,7 +137,7 @@ const TodoCreation = () => {
                     id="title" //pruebo cambiando el id para que coincida con el back de todoTitle a title 
                     label='Tarea'
                     fullWidth
-                    sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                    sx={{ mb:3, bgcolor:'#f5f1f1', borderRadius:1 }}
                 />
                 {/* Descripción */}
                 <TextField
@@ -147,7 +147,8 @@ const TodoCreation = () => {
                     id="description"
                     label='Descripción'
                     fullWidth
-                    sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                    sx={{ mb:3, bgcolor:'#f5f1f1', borderRadius:1 }}
+                    
                 />
                 {/* Prioridad */}
                 {/* <FormControlLabel
@@ -171,13 +172,14 @@ const TodoCreation = () => {
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    sx={{ bgcolor:'#f5f1f1', borderRadius:1}}
                 />
                 {/* <Button 
                     id="submitTask"
                     type="submit"
                     onSubmit={() => console.log("El Logueo del User al Clickear", isLogged)}
                 >Crear Tarea</Button> */}
-                <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-36" /* onClick={createNewTodo} */>
+                <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-32 " /* onClick={createNewTodo} */>
                 Crear Tarea
                 </button>
             </Box>

@@ -13,7 +13,7 @@ const LayoutPublic = () => {
         <>
             {
                 !isLogged ? (
-                <div className="min-h-screen bg-black flex flex-col justify-between"> {/* bg-[#dfdada] */}
+                <div className="min-h-screen bg-[#dfdada] flex flex-col justify-between"> {/* bg-[#dfdada] */}
                     <div>
                         <nav><PublicNavBar /></nav>
                         <main><Outlet /></main>
