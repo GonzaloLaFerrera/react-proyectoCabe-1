@@ -75,18 +75,22 @@ const Home = () => {
     }, [isLogged]);
 
 
-    const createNewTodo = (title) => {
+    /* const createNewTodo = (title) => {
         const newTodo = {
             id: Date.now(),
             title,
             complete:false,
         };
         setTodos([...todos, newTodo]);
-    };
+    }; */
+
+    /* const updateTodo = (id) => {
+        setTodos(todos.map(todo => todo.id === id ? {...todo, complete:!todo.complete} : todo));
+    }; */
 
     const updateTodo = (id) => {
-        setTodos(todos.map(todo => todo.id === id ? {...todo, complete:!todo.complete} : todo));
-    };
+        console.log('click en updateTodo',id)
+    }
 
     const removeTodo = (id) => {
         // setTodos(todos.filter(todo => todo.id !== id));
