@@ -75,18 +75,22 @@ const Home = () => {
     }, [isLogged]);
 
 
-    const createNewTodo = (title) => {
+    /* const createNewTodo = (title) => {
         const newTodo = {
             id: Date.now(),
             title,
             complete:false,
         };
         setTodos([...todos, newTodo]);
-    };
+    }; */
+
+    /* const updateTodo = (id) => {
+        setTodos(todos.map(todo => todo.id === id ? {...todo, complete:!todo.complete} : todo));
+    }; */
 
     const updateTodo = (id) => {
-        setTodos(todos.map(todo => todo.id === id ? {...todo, complete:!todo.complete} : todo));
-    };
+        console.log('click en updateTodo',id)
+    }
 
     const removeTodo = (id) => {
         // setTodos(todos.filter(todo => todo.id !== id));
@@ -116,11 +120,11 @@ const Home = () => {
             {/* Cuerpo de la APP */}
             <main className="container mx-auto mt-8 px-4">
                 {/* Boton de Prueba para Creacion de Tarea Nueva */}
-                <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10}}>
+                <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10, mt:1}}>
                     <NavLink to='/user/todoCreation'>Crear nueva tarea</NavLink>
                 </Button>
 
-                <ToDoCreate createNewTodo={createNewTodo}/>
+                {/* <ToDoCreate createNewTodo={createNewTodo}/> */}
                 
                 <div className="rounded-md bg-white mt-8">
                     <ToDoList todos={tasks} updateTodo={updateTodo} removeTodo={removeTodo}/>

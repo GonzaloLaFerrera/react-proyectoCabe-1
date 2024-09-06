@@ -25,7 +25,7 @@ const Profile = () => {
     }, [isLogged]);
 
     return (
-        <div className="flex flex-col items-center mt-8 mb-[100%]">
+        <div className="flex flex-col items-center mt-8">
             <h1 className="font-bold text-3xl text-center mt-8">Perfil de Usuario</h1>
             <p className="font-semibold text-center mt-4">Revise o actualice sus datos de perfil</p>
             {/* {loading && <p>L O A D I N G ....</p>}  Falta implentar el LOADING!*/}
