@@ -9,12 +9,11 @@ import { useDispatch } from "react-redux";
 
 
 // eslint-disable-next-line no-unused-vars
-const ToDoItem = ({todo, updateTodo, removeTodo}) => {
+const ToDoItem = ({todo, setIsCompleted, removeTodo}) => {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const {id, title, complete} = todo;
-    const {_id, taskTitle, isCompleted} = todo;
+    const {_id, taskTitle, taskDescription, taskDeadline, isCompleted} = todo;
 
     const handleDetail = () => {
         //TAMBIEN PODRIA FILTRAR EL ESTADO DE TAREAS QUE CARGA HOME PARA AHORRAR UNA LLAMADA AL BACKEND
@@ -34,8 +33,8 @@ const ToDoItem = ({todo, updateTodo, removeTodo}) => {
     return (
         <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400" >
             <button 
-                onClick={() => updateTodo(_id)}
-                // className={`${isCompleted && "rounded-full border-2 h-8 w-8 flex justify-center items-center bg-gradient-to-r from-blue-500 via-green-500 to-green-300"}`}
+                onClick={() => setIsCompleted(_id, taskTitle, taskDescription, taskDeadline, isCompleted)}
+                className={`${isCompleted && "rounded-full border-2 h-8 w-8 flex justify-center items-center bg-gradient-to-r from-blue-500 via-green-500 to-green-300"}`}
 
             >
                 {
