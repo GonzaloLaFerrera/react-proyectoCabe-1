@@ -17,6 +17,7 @@ import { loadUserTasks } from "../redux/userSlice";
 
 import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
 import fetchDeleteTask from "../services/fetchDeleteTask";
+import fetchIsCompletedTask from "../services/fetchUpdateTask";
 
 
 
@@ -51,15 +52,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        if(isLogged){
-            // fetchUser()
-            // .then(data => {
-            //     console.log("USER", data)
-            //     dispatch(loadUser(data));
-                
-            // })
-            // .catch(err => console.log(err));
-            
+        if(isLogged){          
             
             fetchTasksFromUser()
             .then(resp => {    
@@ -75,25 +68,24 @@ const Home = () => {
     }, [isLogged]);
 
 
-    /* const createNewTodo = (title) => {
-        const newTodo = {
-            id: Date.now(),
-            title,
-            complete:false,
-        };
-        setTodos([...todos, newTodo]);
-    }; */
-
-    /* const updateTodo = (id) => {
-        setTodos(todos.map(todo => todo.id === id ? {...todo, complete:!todo.complete} : todo));
-    }; */
-
-    const updateTodo = (id) => {
-        console.log('click en updateTodo',id)
+    const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted) => {
+        console.log('click en updateTodo', id)
+        return fetchIsCompletedTask(id, taskTitle, taskDescription, taskDeadline, isCompleted)
+        .then(resp => {
+            if(resp.status === 200){
+                console.log("Updated Tasks!", resp)
+                fetchTasksFromUser()
+                .then(resp => {    
+                    console.log("Update TASKS", resp)          
+                    dispatch(loadUserTasks(resp.docs))
+                })
+                .catch(err => console.log(err)); 
+            }
+        })
     }
 
+
     const removeTodo = (id) => {
-        // setTodos(todos.filter(todo => todo.id !== id));
         console.log("click en eliminar tarea", id)
         fetchDeleteTask(id)
         .then(resp => {
@@ -127,7 +119,7 @@ const Home = () => {
                 {/* <ToDoCreate createNewTodo={createNewTodo}/> */}
                 
                 <div className="rounded-md bg-white mt-8">
-                    <ToDoList todos={tasks} updateTodo={updateTodo} removeTodo={removeTodo}/>
+                    <ToDoList todos={tasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo}/>
                     
                     {/* Operaciones Computadas */}
                     <ToDoComputed computedItemsLeft={computedItemsLeft}/>

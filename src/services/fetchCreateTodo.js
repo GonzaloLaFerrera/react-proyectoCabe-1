@@ -7,9 +7,10 @@ export const fetchCreateTodo = (title, description, deadline) => {
         },
         credentials: "include",
         body: JSON.stringify({
-            title: title,
-            description: description,
-            deadline: deadline
+            taskTitle: task.title,
+            taskDescription: task.description,
+            isCompleted: task.isCompleted,
+            taskDeadline: task.deadline,
         }),
     })
 }

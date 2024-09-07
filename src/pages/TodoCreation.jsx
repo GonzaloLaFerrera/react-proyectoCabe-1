@@ -49,7 +49,6 @@ const TodoCreation = () => {
                console.log("Titulo:", title )
                console.log("Descripcion:", description)
                console.log("Vencimiento:", deadline)
-               // navigate('/user');
            } catch (error) {
                console.error("Error creando tarea:", error);
            }
@@ -71,8 +70,6 @@ const TodoCreation = () => {
             });
 
             if (response.ok) {
-                /* navigate('/user')
-                console.log('La respuesta del servidor esta OK y la tarea fue CREADA!') */
                 //Manejo de la respuesta exitosa
                 console.log("Hemos creado la Tarea para UD!")
                 console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
