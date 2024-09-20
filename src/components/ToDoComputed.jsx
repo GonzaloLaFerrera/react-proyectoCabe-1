@@ -1,5 +1,9 @@
 // eslint-disable-next-line react/prop-types
-const ToDoComputed = ({computedItemsLeft}) => {
+const ToDoComputed = ({computedItemsLeft, tasks}) => {
+
+    const completedTasks = (tasks) => {
+        tasks.filter((task) => !task.isCompleted)
+    }
 
     return(
         <section className="container flex mx-auto py-4 px-4 justify-between">

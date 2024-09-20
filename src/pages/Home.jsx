@@ -100,7 +100,21 @@ const Home = () => {
         });
     };
 
-    const computedItemsLeft = todos.filter(todo => !todo.complete).length;
+    // Funcionalidad de Prioridad
+    /* const priorityTodo = (id) => {
+        console.log("click en DAR PRIORIDAD en tarea", id)
+    }; */
+
+    // Viejo/Local
+    // const computedtemsLeft = todos.filter(todo => !todo.complete).length;
+
+    // Nuevo/Real
+    const computedItemsLeft = tasks.filter(task => !task.isCompleted)
+
+    // Función de Limpieza de Tareas Completadas
+    /* const clearCompleted = ({tasks}) =>{
+        const completedTasks = {tasks}
+    } */
     
 
     return (
@@ -113,16 +127,16 @@ const Home = () => {
             <main className="container mx-auto mt-8 px-4">
                 {/* Boton de Prueba para Creacion de Tarea Nueva */}
                 <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10, mt:1}}>
-                    <NavLink to='/user/todoCreation'>Crear nueva tarea</NavLink>
+                    <NavLink to='/user/todoCreation'>Create new task</NavLink>
                 </Button>
 
                 {/* <ToDoCreate createNewTodo={createNewTodo}/> */}
                 
                 <div className="rounded-md bg-white mt-8">
-                    <ToDoList todos={tasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo}/>
+                    <ToDoList todos={tasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
-                    <ToDoComputed computedItemsLeft={computedItemsLeft}/>
+                    <ToDoComputed todos={tasks} computedItemsLeft={computedItemsLeft} />
                     
                 </div>
                 
