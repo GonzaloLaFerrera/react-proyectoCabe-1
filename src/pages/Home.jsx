@@ -67,6 +67,10 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLogged]);
 
+    // Debugging Completed Tasks
+    // console.log(tasks)
+    // console.log(completedTasks)
+
 
     const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted) => {
         console.log('click en updateTodo', id)
@@ -105,16 +109,23 @@ const Home = () => {
         console.log("click en DAR PRIORIDAD en tarea", id)
     }; */
 
-    // Viejo/Local
-    // const computedtemsLeft = todos.filter(todo => !todo.complete).length;
+    // Función/filtro para saber cantidad(number) de tareas NO completadas
+    const computedItemsLeft = tasks.filter(task => !task.isCompleted).length
+    console.log(computedItemsLeft)
 
-    // Nuevo/Real
-    const computedItemsLeft = tasks.filter(task => !task.isCompleted)
-
-    // Función de Limpieza de Tareas Completadas
-    /* const clearCompleted = ({tasks}) =>{
-        const completedTasks = {tasks}
-    } */
+    // Función para eliminar las tareas completadas
+    const clearCompleted = () => {
+        const completedTasks = tasks.filter(task => task.isCompleted);
+        
+        if(completedTasks.length > 0) {
+            completedTasks.forEach(task => {
+                console.log('El id de las tareas completadas: ' + task._id)
+                removeTodo(task._id);  // Llama a la función removeTodo para cada tarea completada
+            });
+        } else {
+            console.log("No hay tareas completadas para eliminar");
+        }
+    };   
     
 
     return (
@@ -122,21 +133,20 @@ const Home = () => {
             {/* Header */}
             <Header />
             
-
             {/* Cuerpo de la APP */}
             <main className="container mx-auto mt-8 px-4">
-                {/* Boton de Prueba para Creacion de Tarea Nueva */}
+                {/* Boton para Creacion de Tarea Nueva */}
                 <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10, mt:1}}>
                     <NavLink to='/user/todoCreation'>Create new task</NavLink>
                 </Button>
 
-                {/* <ToDoCreate createNewTodo={createNewTodo}/> */}
                 
+                {/* Lista de Tareas */}
                 <div className="rounded-md bg-white mt-8">
                     <ToDoList todos={tasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
-                    <ToDoComputed todos={tasks} computedItemsLeft={computedItemsLeft} />
+                    <ToDoComputed todos={tasks} computedItemsLeft={computedItemsLeft} clearCompleted={clearCompleted}/>
                     
                 </div>
                 
