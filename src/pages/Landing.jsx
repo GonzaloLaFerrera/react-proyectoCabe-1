@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import IconPriority from "../components/icons/IconPriority";
 
 const Landing = () => {
     return(
@@ -11,7 +12,7 @@ const Landing = () => {
                     <Link to='/register'>¿No tenes cuenta? Regístrate.</Link> */}
                 </div>
                 <div className="mt-20">
-                    <p className="font-semibold">¿Tenes una cuenta?
+                    <p className="font-semibold">¿Tenes una cuenta?{/* <IconPriority className='text-lg'/> */}
                         <Button 
                             component={Link} 
                             to='/login'

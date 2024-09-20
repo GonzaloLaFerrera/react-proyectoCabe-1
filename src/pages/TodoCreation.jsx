@@ -1,61 +1,120 @@
-import { CheckBox } from "@mui/icons-material";
-import { Box, Button, FormControlLabel, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { fetchCreateTodo } from "../services/fetchCreateTodo";
-import { loadUserTasks } from "../redux/userSlice";
-import fetchTasksFromUser from "../services/fetchTasksFromUser";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setIsLogged } from "../redux/isLoggedSlice";
+import { Avatar, Box, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
 
-const TodoCreation = () => { 
-    //Estado para el manejo de la fecha de vencimiento
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [stateForm, setStateForm] = useState({
-        title: "",
-        description: "",
-        deadline:""
-    });         
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import { CheckBox } from "@mui/icons-material";
+// import { DatePicker } from '@mui/x-date-pickers-pro';
+
+//Form Control Testing
+import { useState } from "react";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// Form Management and Input Validation
+import { useFormik } from "formik";
+import * as yup from 'yup';
+import { taskCreation } from "../services/taskCreation";
+
+
+const TodoCreation = () => {
+
+    // Form Management Logic with Formik and Yup
+
+    const validationSchema = yup.object({
+        title: yup
+            .string('Enter a title for your task...')
+            .min(3,'a minimum of 3 characters')
+            .required('You must enter a title for your task'),
+        description: yup
+            .string('Enter a brief description of your task...')
+            .min(8,'a minimum of 8 characters')
+            .max(50,'You must enter a maximum of 50 characters')
+            .required('You must enter a brief description of your task'),
+        deadline: yup
+            .date()
+            .required('You must select a deadline'),
+        priority: yup
+            .boolean()
+            .required('You must specify if the task is a priority'),
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            title:'',
+            description: '',
+            deadline: null,
+            // deadline: new Date(),
+            priority: false           
+        },
+        validationSchema: validationSchema,
+       /*  ANTES DE CHATGPT -> onSubmit: (values) => {
+            // let testDate = new Date();
+            // testDate = dayjs(newValue).format('DD/MM/YYYY')
+            // console.log(testDate)
+            alert(JSON.stringify(values, null, 2));
+            console.log('chequeando el submiteo del form con Formik' + values);
+            taskCreation(values.title, values.description, values.deadline, values.priority)
+            .then((response) => {
+                console.log(response)
+                if(response.ok) {
+                    // alert('Los datos ingresados son: - Titulo: ' + title +' - Descripcion: '+ description + ' - La fecha seleccionada es: ' + dayjs(deadline).format('DD/MM/YYYY'))
+                    alert('Los datos ingresados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'));
+                    console.log("Hemos creado la Tarea para UD!")
+                    console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
+                    console.log(response)
+                    navigate('/user')
+                }}
+            )
+        } */
+    //    Con CHATGPT -> haciendo async el envio del onSubmit
+        onSubmit: async (values) => {
+            try {
+                const response = await taskCreation(values.title, values.description, values.deadline, values.priority);
+                if (response.ok) {
+                    alert('Los datos ingresados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'));
+                    console.log("Hemos creado la Tarea para UD!");
+                    navigate('/user');
+                } else {
+                    console.error('Error en la respuesta:', response);
+                }
+            } catch (error) {
+                console.error('Error al crear la tarea:', error);
+            }
+        }
+    
+    })
+
+    /* const [stateForm, setStateForm] = useState({
+        title:'',
+        description: '',
+        priority: false,
+        deadline: null
+    }) */
 
     const navigate = useNavigate();
 
     const {isLogged} = useSelector((state) => state.isLogged);
-    /* const tasks = useSelector((state) => state.user.tasks) */
 
-    const dispatch = useDispatch();
-
+    /* SIN FORMIK NI VALIDACIÓN 
     
+    const handleSubmitForm = async (e) => {
+        e.preventDefault();
 
-    /* const createNewTodo = (e) => {
-        e.preventDefault()
-        console.log("click en CREAR tarea", title, description, deadline) 
-        fetchCreateTodo(stateForm.todoTitle, stateForm.todoDescription, stateForm.fechaVencimiento) //OJO ACA! <-----------------------------------------
-        .then(resp => {
-            console.log("CREATE TASKS", resp)
-            navigate('/home')
-        })
-        .catch(err => console.log(err));
-        };
-        */
-       
-       async function createNewTodo(e) {
-           e.preventDefault()
-           
-           //Depuración Front Propia
-           try {
-               const { title, description, deadline } = stateForm;
-               console.log('funciona el submiteo en consola');
-               console.log('DATOS DEL FORMULARIO')
-               console.log("Titulo:", title )
-               console.log("Descripcion:", description)
-               console.log("Vencimiento:", deadline)
-           } catch (error) {
-               console.error("Error creando tarea:", error);
-           }
-
-           //Posible Solucion GOOGLE GEMINI
         try {
-            
+            const { title, description, deadline, priority } = stateForm;
+            console.log('funciona el submiteo en consola');
+            console.log('DATOS DEL CREATE TASK...')
+            console.log("Titulo:", title )
+            console.log("Descripcion:", description)
+            console.log("Vencimiento:", deadline)
+            console.log("Prioridad:", priority)
+        } catch(error) {
+            console.error('error al crear la tarea', error)
+        }
+
+        try {
+            const { title, description, deadline, priority } = stateForm;
             const response = await fetch("http://localhost:3000/user/tasks/new", {
                 method: "POST",
                 headers: {
@@ -66,11 +125,13 @@ const TodoCreation = () => {
                     title: stateForm.title,
                     description: stateForm.description,
                     deadline: stateForm.deadline,
+                    priority: stateForm.priority
                 }),
             });
 
             if (response.ok) {
                 //Manejo de la respuesta exitosa
+                alert('Los datos ingresados son: - Titulo: ' + title +' - Descripcion: '+ description + ' - La fecha seleccionada es: ' + dayjs(deadline).format('DD/MM/YYYY'))
                 console.log("Hemos creado la Tarea para UD!")
                 console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
                 console.log(response)
@@ -78,109 +139,111 @@ const TodoCreation = () => {
             } else {
                 throw new Error(`Error creando tarea: ${response.statusText}`);
             }
+
         } catch (error) {
             console.error("Error creando tarea:", error);
         }
+    }; */
+    
 
-
-        
-
-
-        //Pruebas de Soluciones Propias
-        /* e.preventDefault()
-        dispatch(setIsLogged(true)) */
-        /* console.log("Estado del Logueo de Usuario en CreateTask",isLogged) */
-
-        /* return fetch("http://localhost:3000/user/tasks/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({
-                title: stateForm.title,
-                description: stateForm.description,
-                deadline:stateForm.deadline
-            }),
-        }).then((data) => {
-            dispatch(setIsLogged(true))
-            console.log("Hemos creado la Tarea para UD!")
-            console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
-            console.log(data)
-            if(data.ok) navigate('/user')
-        }).catch(error => console.log(error))*/
-    }; 
-
-
-    const handleChangeCreation = (e) => {
+    const handleChangeForm = (e) => {
         setStateForm((prev) => {
             return {
                 ...prev,
-                [e.target.id]:e.target.value
+                [e.target.name]:e.target.value
             }
-        })
+        });
+    }
+
+    const handleDatePicker = (newValue) => {
+
+        //Prueba de depuración de la fecha (Funciona)
+        let testDate = new Date();
+        testDate = dayjs(newValue).format('DD/MM/YYYY') 
+        console.log(testDate) // ---> Funciona perfectamente el formateo y la obtención de la data pero el error está
+                              // ---> cuando intento pasarle el valor parseado al input. Necesita el objeto M2.
+                              // ---> tendría que parsearlo después
+        setStateForm({...stateForm, deadline: newValue}) //no puedo pasarle testDate (necesita el obj M2)
     }
 
     return(
-        <section>
-            <Typography variant="h2" component='h1' sx={{ textAlign:'center', mt:2, fontWeight: 'bold', fontFamily:"sans-serif"}}>Crea tu Tarea</Typography>
-            <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2, fontFamily:"sans-serif"}}>Completa los campos para crear tu tarea de forma personalizada</Typography>
-            <Box sx={{ mt:2, mx:2 }} component='form' onChange={handleChangeCreation} onSubmit={createNewTodo}>
-                {/* Titulo */}
-                <TextField
-                    type="text"
-                    placeholder='Ingrese la tarea...'
-                    name="todoTitle"
-                    id="title" //pruebo cambiando el id para que coincida con el back de todoTitle a title 
-                    label='Tarea'
-                    fullWidth
-                    sx={{ mb:3, bgcolor:'#f5f1f1', borderRadius:1 }}
-                />
-                {/* Descripción */}
-                <TextField
-                    type="text"
-                    placeholder='Ingrese una breve descripción...'
-                    name="todoDescription"
-                    id="description"
-                    label='Descripción'
-                    fullWidth
-                    sx={{ mb:3, bgcolor:'#f5f1f1', borderRadius:1 }}
-                    
-                />
-                {/* Prioridad */}
-                {/* <FormControlLabel
-                    control={< CheckBox defaultChecked />}
-                    label='Prioritario'
-                /> */}
-                {/* Fecha Comienzo/Vigencia */}
-                {/* <TextField
-                    id="fechaComienzo"
-                    label="Fecha de Comienzo"
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                /> */}
-                {/* Plazo Vencimiento */}
-                <TextField
-                    id="deadline"
-                    label="Fecha de Vencimiento"
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    sx={{ bgcolor:'#f5f1f1', borderRadius:1}}
-                />
-                {/* <Button 
-                    id="submitTask"
-                    type="submit"
-                    onSubmit={() => console.log("El Logueo del User al Clickear", isLogged)}
-                >Crear Tarea</Button> */}
-                <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-32 " /* onClick={createNewTodo} */>
-                Crear Tarea
-                </button>
+        <>
+            <Box sx={{ width:'100%', mt: 4}}>
+                <Avatar sx={{ mx:'auto', bgcolor:'#767477'}}>
+                    <AssignmentIcon />
+                </Avatar>
+                <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt: 2 }}>Create task!</Typography>
+                <Box sx={{ mt:2, mx:2 }} component='form' onSubmit={formik.handleSubmit}>
+                    <TextField 
+                        id="title"
+                        name='title'
+                        label='Title'
+                        // placeholder="Enter a title for your task..."
+                        fullWidth
+                        sx={{ mb:3, bgcolor: 'white'}}
+                        value={formik.values.title}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.title && Boolean(formik.errors.title)}
+                        helperText={formik.touched.title && formik.errors.title}  
+                    />
+                    <TextField
+                        id="description"
+                        name='description'
+                        label='Description'
+                        // placeholder="Enter a brief description of your task..."
+                        fullWidth
+                        sx={{ mb:3, bgcolor:'white'}}
+                        value={formik.values.description}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.description && Boolean(formik.errors.description)}
+                        helperText={formik.touched.description && formik.errors.description}   
+                    />
+                    <DatePicker
+                        name="deadline"
+                        sx={{width:'358px', bgcolor:'white'}}
+                        value={formik.values.deadline}
+                        onChange={(value) => formik.setFieldValue("deadline", value, true)}
+                        slotProps={{
+                            textField: {
+                                variant: "outlined",
+                                error: formik.touched.deadline && Boolean(formik.errors.deadline),
+                                helperText: formik.touched.deadline && formik.errors.deadline
+                            }
+                        }}
+                        // onChange={formik.handleChange}
+                        /* renderInput={(params) => <TextField {...params} />} EN TEORIA ESTA DEPRECADO */ 
+                    />
+
+                    <FormGroup >
+                        <FormControlLabel
+                            id="priority"
+                            name="priority" 
+                            label={<Typography sx={{ fontStyle: 'italic' }}>Mark task as priority*</Typography>}
+                            // label='Mark task as priority'
+                            control={<Checkbox
+                                checked={formik.values.priority}
+                                // onChange={formik.handleChange} 
+                                onChange={(event) => formik.setFieldValue('priority', event.target.checked)}
+                                inputProps={{ 
+                                    'aria-label': 'controlled',
+                                    // error: formik.touched.priority && Boolean(formik.errors.priority),
+                                    // helperText: formik.touched.priority && formik.errors.priority 
+
+                                }}                                
+                            />}
+                            sx={{ marginY:2 }}
+                        />
+                    </FormGroup>
+
+                    <button className="h-15 w-36 rounded-md bg-[#9b9292] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-28" type="submit">
+                        Create!
+                    </button>
+
+                </Box>
             </Box>
-        </section>
+        </>
     )
 };
 
