@@ -12,6 +12,7 @@ import LayoutPrivate from "../layout/LayoutPrivate";
 import Profile from "../pages/Profile";
 import TodoDetail from "../pages/TodoDetail";
 import TodoCreation from "../pages/TodoCreation";
+import TodoEdit from "../pages/TodoEdit";
 
 export const router = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
             {
                 path:'/user/todoCreation',
                 element: <TodoCreation />
+            },
+            {
+                path:'/user/todoEdit',
+                element: <TodoEdit />
             }
         ]
     },
