@@ -1,14 +1,11 @@
-import { Link } from "react-router-dom";
-
 const Logout = () => {
     return (
-        <div className="flex flex-col justify-center items-center gap-10">
-            <h1 className="bg-green-300 mt-10 text-3xl font-bold p-8">Sesión Finalizada exitosamente</h1>
-            <button className="h-20 w-20 rounded-md bg-blue-500 text-white">
-                <Link to={'/'}>VOLVER al Inicio</Link> 
-            </button>
-        </div>
         
+        <section className="flex flex-col items-center p-4 py-12 my-16 mx-3 gap-2 bg-[#dfdada]">
+            <h1 className="font-bold text-3xl text-center uppercase">Session succesfully closed!</h1>            
+            <h6 className="font-normal text-lg mt-10">Thanks for using the app!</h6>              
+            <span className="font-light italic">Come back whenever you need.</span>            
+        </section>        
     )
 };
 
