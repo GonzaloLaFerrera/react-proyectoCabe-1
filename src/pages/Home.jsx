@@ -18,6 +18,7 @@ import { loadUserTasks } from "../redux/userSlice";
 import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
 import fetchDeleteTask from "../services/fetchDeleteTask";
 import fetchIsCompletedTask from "../services/fetchUpdateTask";
+import ToDoFilter from "../components/ToDoFilter";
 
 
 
@@ -126,7 +127,25 @@ const Home = () => {
         } else {
             console.log("No hay tareas completadas para eliminar");
         }
-    };   
+    };
+    
+    // Función de filtrado de tareas
+    const [taskFilter, setTaskFilter] = useState('all');
+
+    const filteredTasks = () => {
+        switch(taskFilter) {
+            case 'all':
+                return tasks;
+            case 'active':
+                return tasks.filter((task) => !task.isCompleted);
+            case 'completed':
+                return tasks.filter((task) => task.isCompleted);
+            default:
+                return tasks;
+        }
+    };
+
+    const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
     
 
     return (
@@ -144,7 +163,7 @@ const Home = () => {
                 
                 {/* Lista de Tareas */}
                 <div className="rounded-md bg-white mt-8">
-                    <ToDoList todos={tasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
+                    <ToDoList /* todos={tasks} */ todos={filteredTasks()} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
                     <ToDoComputed todos={tasks} computedItemsLeft={computedItemsLeft} clearCompleted={clearCompleted}/>
@@ -152,22 +171,15 @@ const Home = () => {
                 </div>
                 
                 {/* Selector de filtros */}
-                <section className="container mx-auto px-4 mt-8">
+                {/* <section className="container mx-auto px-4 mt-8">
                     <div className="flex justify-around rounded-md bg-white p-4 ">
                         <button className="text-blue-600">All</button>
                         <button className="text-gray-400 hover:text-blue-600">Active</button>
                         <button className="text-gray-400 hover:text-blue-600">Completed</button>
                     </div>
-                </section>
+                </section> */}
+                <ToDoFilter changeFilter={changeFilter} taskFilter={taskFilter}/>
             </main>
-
-
-            {/* Gonza, este botón en realidad tiene que ser la tarea, asi que lo muevo
-
-            <p className="text-white text-center mt-8">Drag and Drop to re-order list</p>
-            <button className="h-20 w-20 rounded-md bg-blue-500 text-white mt-4 px-6 py-4 ">
-                    <Link to={'/user/taskDetail'}>Task Detail</Link>
-            </button> */}
         </div>
     )
 };
