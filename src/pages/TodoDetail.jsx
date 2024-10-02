@@ -34,7 +34,7 @@ const TodoDetail = () => {
             </div>
             <div className="flex gap-2 mt-4">
                 <button className="h-14 w-20 rounded-md bg-[#686060] text-white">
-                    Edit Task
+                    <Link to={'/user/todoEdit'}>Edit Task</Link>
                 </button>
                 <button className="h-14 w-20 rounded-md bg-[#686060] text-white">
                     <Link to={'/user'}>Back</Link>

@@ -72,6 +72,7 @@ const Home = () => {
     // console.log(completedTasks)
 
 
+    // Funcionalidad para actualizar tareas
     const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted) => {
         console.log('click en updateTodo', id)
         return fetchIsCompletedTask(id, taskTitle, taskDescription, taskDeadline, isCompleted)
@@ -86,7 +87,7 @@ const Home = () => {
                 .catch(err => console.log(err)); 
             }
         })
-    }
+    };
 
 
     const removeTodo = (id) => {
