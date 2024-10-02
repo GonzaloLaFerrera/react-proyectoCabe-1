@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import { logoutUser } from '../redux/userSlice'
 import { setIsLogged } from "../redux/isLoggedSlice";
 
+// Alerts
+import Swal from 'sweetalert2';
+
 
 const NavBar = () => {
 
@@ -26,7 +29,14 @@ const NavBar = () => {
             //prueba para el deslogueo exitoso (FUNCIONA PERFECTAMENTE)
             dispatch(setIsLogged(false))
             navigate('/user/logout')
-            alert('Sesión Finalizada') //puede ser una page o un componente            
+            alert('Sesión Finalizada') //puede ser una page o un componente
+            Swal.fire({
+                title: 'Session finished!',
+                text: `See you soon...`,
+                icon: 'warning',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#686060'
+            })            
             if(data.status !== 200){
                 console.log('Algo salió mal en el Logout')
                 navigate("/")

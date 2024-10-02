@@ -18,6 +18,8 @@ import * as yup from 'yup';
 // Fetching Service
 import { taskCreation } from "../services/taskCreation";
 
+// Alerts
+import Swal from 'sweetalert2';
 
 const TodoCreation = () => {
 
@@ -76,9 +78,27 @@ const TodoCreation = () => {
                 if (response.ok) {
                     alert('Los datos ingresados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'));
                     console.log("Hemos creado la Tarea para UD!");
+                    Swal.fire({
+                        title: 'Task succesfully created!',
+                        // text: `- Title: ` + `${values.title}` + ' - Description: ' + `${values.description}` + ' - Priority: ' + ` ${values.priority}` + ' - Deadline: ' + `${dayjs(values.deadline).format('DD/MM/YYYY')}`,
+                        html:`<p><strong>Title:</strong> ${values.title}</p>
+                              <p><strong>Description:</strong> ${values.description}</p>
+                              <p><strong>Priority:</strong> ${values.priority}</p>
+                              <p><strong>Deadline:</strong> ${dayjs(values.deadline).format('DD/MM/YYYY')}</p>`,
+                        icon: 'success',
+                        confirmButtonText: 'Continue...',
+                        confirmButtonColor: '#686060'
+                    })
                     navigate('/user');
                 } else {
                     console.error('Error en la respuesta:', response);
+                    Swal.fire({
+                        title: 'Oops...!',
+                        text: `There's an error. Check the info and try again`,
+                        icon: 'error',
+                        confirmButtonText: 'Try again',
+                        confirmButtonColor: '#686060'
+                    })
                 }
             } catch (error) {
                 console.error('Error al crear la tarea:', error);

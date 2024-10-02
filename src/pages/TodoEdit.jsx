@@ -17,6 +17,9 @@ import { DatePicker } from "@mui/x-date-pickers";
 // Fetching
 import fetchEditTask from "../services/fetchEditTask";
 
+// Alerts
+import Swal from 'sweetalert2';
+
 const TodoEdit = () => {
 
     const navigate = useNavigate();
@@ -59,9 +62,26 @@ const TodoEdit = () => {
                 const response = await fetchEditTask(values.id, values.title, values.description, values.deadline, values.isCompleted, values.priority);
                 if (response.ok) {
                     alert('Los datos editados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'))
+                    Swal.fire({
+                        title: 'Task succesfully edited!',
+                        html:`<p><strong>Title:</strong> ${values.title}</p>
+                              <p><strong>Description:</strong> ${values.description}</p>
+                              <p><strong>Priority:</strong> ${values.priority}</p>
+                              <p><strong>Deadline:</strong> ${dayjs(values.deadline).format('DD/MM/YYYY')}</p>`,
+                        icon: 'success',
+                        confirmButtonText: 'Continue...',
+                        confirmButtonColor: '#686060'
+                    })
                     console.log('Hemos editado su tarea: ' + values)
                     navigate('/user')
                 } else {
+                    Swal.fire({
+                        title: 'Oops...!',
+                        text: `There's an error. Check the info and try again`,
+                        icon: 'error',
+                        confirmButtonText: 'Try again',
+                        confirmButtonColor: '#686060'
+                    })
                     console.error('Error en la respuesta:', response)
                 } 
             } catch (error) {

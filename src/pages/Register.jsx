@@ -1,17 +1,23 @@
-import { Https } from "@mui/icons-material";
-import { Avatar, Box, TextField, Typography } from "@mui/material";
-// import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// MUI icons and components
+import { Https } from "@mui/icons-material";
+import { Avatar, Box, TextField, Typography } from "@mui/material";
 
+// User logged management
 import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
 
+// Services
 import { userRegister } from "../services/userRegister";
 
+//// Form management and validation
 import { useFormik } from "formik";
 import * as yup from 'yup';
+
+// Alerts
+import Swal from 'sweetalert2';
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -64,7 +70,24 @@ const Register = () => {
             userRegister(values.name, values.lastName, values.email, values.password)
             .then((data)=>{
                 console.log(data)
-                if(data.ok) navigate("/login");
+                if(data.ok){
+                    navigate("/login");
+                    Swal.fire({
+                        title: 'Succesful register!',
+                        text: `Welcome ${values.name}, please login...`,
+                        icon: 'success',
+                        confirmButtonText: 'Continue...',
+                        confirmButtonColor: '#686060'
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Oops...!',
+                        text: `There's an error. Check your info and try again`,
+                        icon: 'error',
+                        confirmButtonText: 'Try again',
+                        confirmButtonColor: '#686060'
+                    })
+                } 
             })
         },
     });

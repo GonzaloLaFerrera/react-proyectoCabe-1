@@ -7,8 +7,12 @@ import { userLogin } from "../services/userLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLogged } from "../redux/isLoggedSlice";
 
+// Form management and validation
 import { useFormik } from "formik";
 import * as yup from 'yup';
+
+// Alerts
+import Swal from 'sweetalert2';
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -39,7 +43,7 @@ const Login = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2)); // Podría cambiar este alerta por Sweet Alert
+            alert(JSON.stringify(values, null, 2)); // Podría cambiar este alerta por Sweet Alert            
             console.log(values)
             userLogin(values.email, values.password)
             .then(resp => {
@@ -47,6 +51,21 @@ const Login = () => {
                     dispatch(setIsLogged(true))
                     console.log('El console del LOGUEO', isLogged)                    
                     navigate("/user");
+                    Swal.fire({
+                        title: 'Succesful login!',
+                        text: `Welcome ${values.email}`,
+                        icon: 'success',
+                        confirmButtonText: 'Continue...',
+                        confirmButtonColor: '#686060'
+                    })
+                } else {
+                    Swal.fire({
+                        title: 'Oops...!',
+                        text: `There's an error. Check your access info and try again`,
+                        icon: 'error',
+                        confirmButtonText: 'Try again',
+                        confirmButtonColor: '#686060'
+                    })
                 }
             }).catch(err => console.log(err))
         },
@@ -98,10 +117,3 @@ const Login = () => {
 }
 
 export default Login;
-
-{/*         >>> BOTÓN DE MUI DESCARTADO <<<
-                <Button 
-                fullWidth 
-                variant="contained" 
-                onClick={handleClick}
-                >Ingresar</Button> */}
