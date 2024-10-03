@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { Avatar, Box, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
 
 // Icons
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import EditIcon from '@mui/icons-material/Edit';
 
 // Form Management and Input Validation
 import { useFormik } from "formik";
@@ -94,7 +94,7 @@ const TodoEdit = () => {
         <>
         <Box sx={{ width:'100%', mt: 4}}>
             <Avatar sx={{ mx:'auto', bgcolor:'#767477'}}>
-                <AssignmentIcon />
+                <EditIcon />
             </Avatar>
             <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt: 2 }}>Edit task!</Typography>
             <Box sx={{ mt:2, mx:2 }} component='form' onSubmit={formik.handleSubmit}>
