@@ -8,7 +8,7 @@ import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 // import { useNavigate, Link } from "react-router-dom";
 
 import fetchTasksFromUser from "../services/fetchTasksFromUser";
@@ -19,6 +19,7 @@ import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
 import fetchDeleteTask from "../services/fetchDeleteTask";
 import fetchIsCompletedTask from "../services/fetchUpdateTask";
 import ToDoFilter from "../components/ToDoFilter";
+import Pagination from "../components/Pagination";
 
 
 
@@ -51,11 +52,17 @@ const Home = () => {
 
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+
+    // Paginación
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
+
 
     useEffect(() => {
         if(isLogged){          
             
-            fetchTasksFromUser()
+            fetchTasksFromUser(currentPage, itemsPerPage)
             .then(resp => {    
                 console.log("TASKS", resp)          
                 dispatch(loadUserTasks(resp.docs))
@@ -64,9 +71,11 @@ const Home = () => {
                 //ACA CAMBIÉ EL FETCH A LAS TAREAS DEL USUARIO (AHORA LO HACEMOS DE FORMA INDEPENDIENTE A LA INFO DEL USUARIO, PARA TENER LA POSIBILIDAD DE PAGINAR
                 // LA LLAMADA A PROFILE SE HACE CUANDO SE LOGUEA
     
+        } else {
+            navigate('/')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged]);
+    }, [isLogged, currentPage, itemsPerPage]);
 
     // Debugging Completed Tasks
     // console.log(tasks)
@@ -149,12 +158,12 @@ const Home = () => {
     
 
     return (
-        <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-10 mb-[100%] flex flex-col items-center ">
+        <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-5 mb-[100%] flex flex-col items-center ">
             {/* Header */}
             <Header />
             
             {/* Cuerpo de la APP */}
-            <main className="container mx-auto mt-8 px-4">
+            <main className="container mx-auto mt-6 px-4">
                 {/* Boton para Creacion de Tarea Nueva */}
                 <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10, mt:1}}>
                     <NavLink to='/user/todoCreation'>Create new task</NavLink>
@@ -162,7 +171,8 @@ const Home = () => {
 
                 
                 {/* Lista de Tareas */}
-                <div className="rounded-md bg-white mt-8">
+                <div className="rounded-md bg-white mt-10">
+                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasMorePages={tasks.length === itemsPerPage}/>
                     <ToDoList /* todos={tasks} */ todos={filteredTasks()} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}

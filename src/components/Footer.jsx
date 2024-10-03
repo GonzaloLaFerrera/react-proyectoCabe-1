@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
-        <section className="text-center mt-0">
-            <p className="text-[#686060] p-5 ">© CaveMen Copyright 2024</p>
+        <section className="text-center">
+            <p className="text-[#686060] p-2 text-xs">© CaveMen Copyright 2024</p>
         </section>
     );
 };

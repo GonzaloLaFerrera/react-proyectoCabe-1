@@ -1,7 +1,7 @@
 const ToDoFilter = ({ taskFilter, changeFilter }) => {
   return (
     <div>
-        <section className="container mx-auto px-4 mt-8">
+        <section className="container mx-auto px-4 mt-4">
             <div className="flex justify-around rounded-md bg-white p-4 ">
                 <button
                     onClick={() => changeFilter('all')} 
