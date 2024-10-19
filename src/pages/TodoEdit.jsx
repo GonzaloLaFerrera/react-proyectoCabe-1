@@ -92,11 +92,11 @@ const TodoEdit = () => {
 
     return (
         <>
-        <Box sx={{ width:'100%', mt: 4}}>
-            <Avatar sx={{ mx:'auto', bgcolor:'#767477'}}>
-                <EditIcon />
+        <Box sx={{backgroundColor:{lg:'#d6cfcf'}, paddingY:{lg:4},width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:4}, marginX:{lg:'auto'},/*  border:{lg:1}, borderColor:{lg:'grey'},  */boxShadow:{lg:2}, mb:{lg:'20px'}}}> {/* Puede probarse sin backgroundColor */}
+            <Avatar sx={{width:{lg:60}, height:{lg:60}, mx:'auto', bgcolor:'#767477'}}>
+                <EditIcon sx={{ fontSize:{ lg:40 }}}/>
             </Avatar>
-            <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt: 2 }}>Edit task!</Typography>
+            <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt: 2, fontSize:{lg:30} }}>Edit task!</Typography>
             <Box sx={{ mt:2, mx:2 }} component='form' onSubmit={formik.handleSubmit}>
                     <TextField 
                         id="title"
@@ -122,20 +122,22 @@ const TodoEdit = () => {
                         error={formik.touched.description && Boolean(formik.errors.description)}
                         helperText={formik.touched.description && formik.errors.description}   
                     />
-                    <Typography variant="body1" component='span'><b>Deadline: </b>{dayjs(taskLoading.taskDeadline).format('DD/MM/YYYY')}</Typography>
-                    <DatePicker
-                        name="deadline"
-                        sx={{width:'358px', bgcolor:'white'}}
-                        value={formik.values.deadline}
-                        onChange={(value) => formik.setFieldValue("deadline", value, true)}
-                        slotProps={{
-                            textField: {
-                                variant: "outlined",
-                                error: formik.touched.deadline && Boolean(formik.errors.deadline),
-                                helperText: formik.touched.deadline && formik.errors.deadline
-                            }
-                        }}
-                    />
+                    <Box sx={{display:'flex', flexDirection:'column'}}>
+                        <Typography variant="body1" component='span' sx={{ marginY:'10px'}}><b>Original deadline: </b>{dayjs(taskLoading.taskDeadline).format('DD/MM/YYYY')}</Typography>
+                        <DatePicker
+                            name="deadline"
+                            sx={{width:'358px', bgcolor:'white'}}
+                            value={formik.values.deadline}
+                            onChange={(value) => formik.setFieldValue("deadline", value, true)}
+                            slotProps={{
+                                textField: {
+                                    variant: "outlined",
+                                    error: formik.touched.deadline && Boolean(formik.errors.deadline),
+                                    helperText: formik.touched.deadline && formik.errors.deadline
+                                }
+                            }}
+                        />
+                    </Box>
                     <FormGroup>
                         <FormControlLabel
                             id="priority"
@@ -153,11 +155,11 @@ const TodoEdit = () => {
                         />
                     </FormGroup>
 
-                    <div className="flex flex-row gap-4 justify-center">
-                        <button className="h-15 w-36 rounded-md bg-[#9b9292] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8" type="button">
+                    <div className="flex flex-row gap-4 justify-center lg:mb-2">
+                        <button className="h-15 w-36 rounded-md bg-[#9b9292] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 lg:shadow-lg" type="button">
                             <Link to={'/user'}>Cancel</Link>
                         </button>
-                        <button className="h-15 w-36 rounded-md bg-[#9b9292] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 " type="submit">
+                        <button className="h-15 w-36 rounded-md bg-[#9b9292] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 lg:shadow-lg" type="submit">
                             Edit!
                         </button>
                     </div>

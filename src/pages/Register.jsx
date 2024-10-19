@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 // MUI icons and components
 import { Https } from "@mui/icons-material";
 import { Avatar, Box, TextField, Typography } from "@mui/material";
+import { shadows } from '@mui/system';
+
 
 // User logged management
 import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
@@ -95,19 +97,19 @@ const Register = () => {
     return(
         <>
             {/* <Box sx={{mt:8, width:'75%', mx:2}}> */}
-            <Box sx={{width:'100%', mt: 4}}>
-                <Avatar sx={{ mx:'auto', bgcolor:'#767477' }}>
-                    <Https/>
+            <Box sx={{backgroundColor:{lg:'#c4bcbc'},paddingBottom:{lg:4},width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:2}, marginX:{lg:'auto'}, boxShadow:{lg:2},}}>
+                <Avatar sx={{width:{lg:60}, height:{lg:60}, mx:'auto', bgcolor:'#767477', mt:{sm:6, lg:4} }}>
+                    <Https sx={{ fontSize:{ lg:60 }}}/>
                 </Avatar>
-                <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Register</Typography>
+                <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2, fontSize:{lg:30}}}>Register</Typography>
                     <Box sx={{ mt:2, mx:2 }} component='form'  onSubmit={formik.handleSubmit}>
                         <TextField
                             type="text"
                             id='name'                        
                             name="name"                        
-                            label='Nombre'
+                            label='Name'
                             fullWidth
-                            sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                            sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:4, lg:1 } }}
                             value={formik.values.name}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -118,9 +120,9 @@ const Register = () => {
                             type="text"                            
                             name="lastName"
                             id="lastName"
-                            label='Apellido'
+                            label='Last Name'
                             fullWidth
-                            sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                            sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:4, lg:1 } }}
                             value={formik.values.lastName}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -132,7 +134,7 @@ const Register = () => {
                             name="email"                        
                             label='Email'
                             fullWidth
-                            sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                            sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:4, lg:1  } }}
                             value={formik.values.email}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -145,16 +147,21 @@ const Register = () => {
                             id="password"
                             label='Password'
                             fullWidth
-                            sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                            sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:4, lg:1  } }}
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             error={formik.touched.password && Boolean(formik.errors.password)}
                             helperText={formik.touched.password && formik.errors.password}
                         />
-                        <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-32" type="submit">
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <button className="h-15 w-36 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8" type="submit">
+                                Sign up
+                            </button>
+                        </Box>
+                        {/* <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 md:mx-[340px] md:mt-12" type="submit">
                             REGISTRARSE
-                        </button>
+                        </button> */}
                 </Box>
             </Box>
         </>

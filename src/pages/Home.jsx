@@ -137,7 +137,7 @@ const Home = () => {
             console.log("No hay tareas completadas para eliminar");
         }
     };
-    
+
     // Función de filtrado de tareas
     const [taskFilter, setTaskFilter] = useState('all');
 
@@ -155,25 +155,36 @@ const Home = () => {
     };
 
     const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
+
+     
+    // Ordenamiento de tareas por Prioridad
+    const sortedTasks = [...filteredTasks()].sort((a,b) => {
+        
+        if(a.isPriority && !b.isPriority) return -1; //tendría prioridad 'a'
+        
+        if(!a.isPriority && b.isPriority) return 1; //tendría prioridad 'b'
+
+        return 0; //no habría cambio de prioridad
+    });
     
 
     return (
-        <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-5 mb-[100%] flex flex-col items-center ">
+        <div className="w-full bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] mt-5 flex flex-col items-center sm:bg-[url('./assets/img/pexels-pixabay-434337.jpg')] sm:bg-cover sm:h-[220px] lg:m-0 lg:mt-8">
             {/* Header */}
             <Header />
             
             {/* Cuerpo de la APP */}
-            <main className="container mx-auto mt-6 px-4">
+            <main className="container mx-auto mt-6 px-4 flex flex-col justify-center gap-2 sm:gap-20 lg:gap-2 lg:mt-4 lg:mx-0">
                 {/* Boton para Creacion de Tarea Nueva */}
-                <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', ml:10, mt:1}}>
+                <Button variant="contained" style={{ border: '1px solid #afa5a5', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', marginTop:{xs:2, sm:2, md:6}, marginX: {sm:22,md:'auto', lg:'auto'}, width:{md: '40%',lg:'25%'}, boxShadow:{lg:3} }}>
                     <NavLink to='/user/todoCreation'>Create new task</NavLink>
                 </Button>
 
                 
                 {/* Lista de Tareas */}
-                <div className="rounded-md bg-white mt-10">
+                <div className="rounded-md bg-white mt-10 lg:mt-20 lg:w-[50%] lg:mx-auto">
                     <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasMorePages={tasks.length === itemsPerPage}/>
-                    <ToDoList /* todos={tasks} */ todos={filteredTasks()} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
+                    <ToDoList /* todos={tasks} */ /* todos={filteredTasks()} */ todos={sortedTasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
                     <ToDoComputed todos={tasks} computedItemsLeft={computedItemsLeft} clearCompleted={clearCompleted}/>
@@ -181,13 +192,6 @@ const Home = () => {
                 </div>
                 
                 {/* Selector de filtros */}
-                {/* <section className="container mx-auto px-4 mt-8">
-                    <div className="flex justify-around rounded-md bg-white p-4 ">
-                        <button className="text-blue-600">All</button>
-                        <button className="text-gray-400 hover:text-blue-600">Active</button>
-                        <button className="text-gray-400 hover:text-blue-600">Completed</button>
-                    </div>
-                </section> */}
                 <ToDoFilter changeFilter={changeFilter} taskFilter={taskFilter}/>
             </main>
         </div>
