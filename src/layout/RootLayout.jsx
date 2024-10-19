@@ -13,10 +13,10 @@ const LayoutPublic = () => {
         <>
             {
                 !isLogged ? (
-                <div className="min-h-screen bg-[#dfdada] flex flex-col justify-between">
+                <div className="min-h-screen bg-[#dfdada] flex flex-col justify-between"> {/* bg-slate-500 sm:bg-[#128b07] md:bg-[#faed36]  lg:bg-[#a72828] */}
                     <div>
                         <nav><PublicNavBar /></nav>
-                        <main><Outlet /></main>
+                        <main className="lg:flex lg:flex-col lg:justify-center "><Outlet /></main>
                     </div>
                     <div>
                         <footer><Footer /></footer>
@@ -31,7 +31,7 @@ const LayoutPublic = () => {
 export default LayoutPublic;
 
 
-/* 
+/* #dfdada
 return(
     <>
         {

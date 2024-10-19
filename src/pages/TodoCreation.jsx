@@ -1,19 +1,19 @@
+// MUI
 import { Avatar, Box, Checkbox, FormControlLabel, FormGroup, TextField, Typography } from "@mui/material";
 
+// Icons
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { CheckBox } from "@mui/icons-material";
-// import { DatePicker } from '@mui/x-date-pickers-pro';
 
 //Form Control Testing
 import { useState } from "react";
-import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Form Management and Input Validation
 import { useFormik } from "formik";
 import * as yup from 'yup';
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 // Fetching Service
 import { taskCreation } from "../services/taskCreation";
@@ -45,8 +45,8 @@ const TodoCreation = () => {
 
     const formik = useFormik({
         initialValues: {
-            title:'',
-            description: '',
+            title:'Enter a title for your task...',
+            description: 'Enter a brief description of your task...',
             deadline: null,
             // deadline: new Date(),
             priority: false           
@@ -190,8 +190,9 @@ const TodoCreation = () => {
 
     return(
         <>
-            <Box sx={{ width:'100%', mt: 4}}>
-                <Avatar sx={{ mx:'auto', bgcolor:'#767477'}}>
+            {/* <Box sx={{ width:'100%', mt: 4, px:{sm:2}}}> */}
+            <Box sx={{backgroundColor:{lg:'#d6cfcf'},paddingY:{lg:4},width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:6}, marginX:{lg:'auto'},/*  border:{lg:1}, borderColor:{lg:'grey'},  */boxShadow:{lg:2}, mb:{lg:'20px'}}}>
+                <Avatar sx={{ mx:'auto', bgcolor:'#767477', mt:{sm:6, lg:0}}}>
                     <AssignmentIcon />
                 </Avatar>
                 <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt: 2 }}>Create task!</Typography>
@@ -202,7 +203,7 @@ const TodoCreation = () => {
                         label='Title'
                         // placeholder="Enter a title for your task..."
                         fullWidth
-                        sx={{ mb:3, bgcolor: 'white'}}
+                        sx={{ mb:3, bgcolor: '#f5f1f1', mt:{ sm:2 }}}
                         value={formik.values.title}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -215,16 +216,17 @@ const TodoCreation = () => {
                         label='Description'
                         // placeholder="Enter a brief description of your task..."
                         fullWidth
-                        sx={{ mb:3, bgcolor:'white'}}
+                        sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:2 }}}
                         value={formik.values.description}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={formik.touched.description && Boolean(formik.errors.description)}
                         helperText={formik.touched.description && formik.errors.description}   
                     />
+                    {/* <Typography variant="body1" component='span' ><b>Choose a date as deadline: </b></Typography> */}
                     <DatePicker
                         name="deadline"
-                        sx={{width:'358px', bgcolor:'white'}}
+                        sx={{width:{xs:'358px', sm:'35%', lg:'50%'}, bgcolor:'#f5f1f1', mt:{ sm:2 }}}
                         value={formik.values.deadline}
                         onChange={(value) => formik.setFieldValue("deadline", value, true)}
                         slotProps={{
@@ -255,13 +257,15 @@ const TodoCreation = () => {
 
                                 }}                                
                             />}
-                            sx={{ marginY:2 }}
+                            sx={{marginY:2/* , display: {sm:'flex'}, justifyContent:{sm:'center'}, mt:{sm: 4} */}}
                         />
                     </FormGroup>
 
-                    <button className="h-15 w-36 rounded-md bg-[#9b9292] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-28" type="submit">
-                        Create!
-                    </button>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <button className="h-15 w-36 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8" type="submit">
+                            Create!
+                        </button>
+                    </Box>
 
                 </Box>
             </Box>

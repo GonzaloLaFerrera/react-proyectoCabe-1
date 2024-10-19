@@ -45,14 +45,14 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="container min-w-full flex gap-2 justify-end py-4 bg-[#887a7a] px-4">
-            <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060' }}>
+        <nav className="container min-w-full flex gap-2 justify-end py-4 bg-[#887a7a] px-4 sm:px-6">
+            <Button variant="contained"sx={{boxShadow:{xs:0, lg:3}}} style={{ border: '1px solid #afa5a5', cursor: 'pointer', backgroundColor: '#686060' }}>
                 <NavLink to='/user'>Home</NavLink>
             </Button>
-            <Button variant="contained" style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060' }}>
+            <Button variant="contained" sx={{boxShadow:{xs:0, lg:3}}} style={{ border: '1px solid #afa5a5', cursor: 'pointer', backgroundColor: '#686060' }}>
                 <NavLink to='/user/profile'>Profile</NavLink>
             </Button>
-            <Button variant="contained" onClick={handleClickLogOut} style={{ border: '1px solid #afa5a5', boxShadow: 'none', cursor: 'pointer', backgroundColor: '#686060' }}>
+            <Button variant="contained" onClick={handleClickLogOut}sx={{boxShadow:{xs:0,lg:3}}} style={{ border: '1px solid #afa5a5', cursor: 'pointer', backgroundColor: '#686060' }}>
                 <NavLink to='/user/logout'>Logout</NavLink>
             </Button>
         </nav>

@@ -73,18 +73,21 @@ const Login = () => {
 
     return(
         <>
-            <Box sx={{width:'100%', mt: 4}}>
-                <Avatar sx={{ mx:'auto', bgcolor:'#767477' }}>
-                    <Https/>
+            {/* <Box sx={{width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:1}, display:{lg:'flex'}, flexDirection:{lg:'column'}, justifyContent:{lg:'center'}}}> '100%' */}
+            <Box sx={{backgroundColor:{lg:'#c4bcbc'},paddingBottom:{lg:4},width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:2}, marginX:{lg:'auto'}, boxShadow:{lg:2},}}>
+                {/* <Avatar sx={{ mx:'auto', bgcolor:{ xs:'#767477', sm:'#7f1db1', md: '#2aa874', lg:'#e5f04a' }, mt:{sm:12} }}> */}
+                <Avatar sx={{width:{lg:60}, height:{lg:60}, mx:'auto', bgcolor:'#767477', mt:{sm:6, lg:4} }}>
+                    {/* sx={{ width: 80, height: 80, bgcolor: '#767477' }} */}
+                    <Https sx={{ fontSize:{ lg:60 }}}/>
                 </Avatar>
-                <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2}}>Login</Typography>
-                <Box sx={{ mt:2, mx:2 }} component='form' onSubmit={formik.handleSubmit}>
+                <Typography variant="h5" component='h1' sx={{ textAlign:'center', mt:2, fontSize:{lg:30}}}>Login</Typography>
+                <Box sx={{ mt:{xs:2, sm:6, lg:2}, mx:2/* , width:{lg:'80%'}, display:{lg:'flex'}, flexDirection:{lg:'column'}, align:{lg:'center'} */ }} component='form' onSubmit={formik.handleSubmit}>
                     <TextField
                         id='email'                        
                         name="email"                        
                         label='Email'
                         fullWidth
-                        sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                        sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:2, lg:1  } }}
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -97,7 +100,7 @@ const Login = () => {
                         id="password"
                         label='Password'
                         fullWidth
-                        sx={{ mb:3, bgcolor:'#f5f1f1' }}
+                        sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:4 } }}
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -105,15 +108,21 @@ const Login = () => {
                         helperText={formik.touched.password && formik.errors.password}
                     />
                     
-                    <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 ml-36" type="submit">
+                   {/*  <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4  hover:shadow-lg hover:cursor-pointer mt-8 md:mx-[350px] md:mt-12" type="submit">
                         INGRESAR
-                    </button>
+                    </button> */}
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <button className="h-15 w-36 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8" type="submit">
+                            Sign in
+                        </button>
+                    </Box>
                 </Box>
-
-
             </Box>
         </>
     )
 }
 
 export default Login;
+
+{/* <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 ml-36" type="submit"> */}
+{/* <Avatar sx={{ mx:'auto', bgcolor:'#767477' }}></Avatar> */}
