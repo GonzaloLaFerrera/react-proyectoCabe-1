@@ -83,9 +83,9 @@ const Home = () => {
 
 
     // Funcionalidad para actualizar tareas
-    const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted) => {
+    const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority) => {
         console.log('click en updateTodo', id)
-        return fetchIsCompletedTask(id, taskTitle, taskDescription, taskDeadline, isCompleted)
+        return fetchIsCompletedTask(id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority)
         .then(resp => {
             if(resp.status === 200){
                 console.log("Updated Tasks!", resp)

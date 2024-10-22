@@ -4,6 +4,7 @@ const fetchEditTask = (id, title, description, deadline, isCompleted, priority) 
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify({
             taskTitle: title,
             taskDescription: description,
