@@ -1,8 +1,14 @@
 // Icons
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useEffect } from 'react';
 
 const Pagination = ({ currentPage, setCurrentPage, hasMorePages }) => {
+
+    useEffect(() => {
+        console.log(hasMorePages)
+    },[]);
+
     return (
         <section className="container flex mx-auto py-4 px-4 justify-between border-b border-b-gray-400">
             <button                

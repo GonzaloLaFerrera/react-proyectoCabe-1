@@ -183,7 +183,7 @@ const Home = () => {
                 
                 {/* Lista de Tareas */}
                 <div className="rounded-md bg-white mt-10 lg:mt-20 lg:w-[50%] lg:mx-auto">
-                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasMorePages={tasks.length === itemsPerPage}/>
+                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} /* hasMorePages={tasks.length === itemsPerPage} */ hasMorePages={tasks.length > itemsPerPage}/>
                     <ToDoList /* todos={tasks} */ /* todos={filteredTasks()} */ todos={sortedTasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
