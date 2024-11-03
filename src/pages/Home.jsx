@@ -59,10 +59,29 @@ const Home = () => {
     const [itemsPerPage, setItemsPerPage] = useState(5);
 
 
+    // Función de filtrado de tareas
+    const [taskFilter, setTaskFilter] = useState('all');
+
+    const filteredTasks = () => {
+        switch(taskFilter) {
+            case 'all':
+                return tasks;
+            case 'active':
+                return tasks.filter((task) => !task.isCompleted);
+            case 'completed':
+                return tasks.filter((task) => task.isCompleted);
+            default:
+                return tasks;
+        }
+    };
+
+    const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
+
+
     useEffect(() => {
         if(isLogged){          
             
-            fetchTasksFromUser(currentPage, itemsPerPage)
+            fetchTasksFromUser(currentPage, itemsPerPage, taskFilter)
             .then(resp => {    
                 console.log("TASKS", resp)          
                 dispatch(loadUserTasks(resp.docs))
@@ -75,7 +94,7 @@ const Home = () => {
             navigate('/')
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged, currentPage, itemsPerPage]);
+    }, [isLogged, currentPage, itemsPerPage, taskFilter]);
 
     // Debugging Completed Tasks
     // console.log(tasks)
@@ -138,23 +157,6 @@ const Home = () => {
         }
     };
 
-    // Función de filtrado de tareas
-    const [taskFilter, setTaskFilter] = useState('all');
-
-    const filteredTasks = () => {
-        switch(taskFilter) {
-            case 'all':
-                return tasks;
-            case 'active':
-                return tasks.filter((task) => !task.isCompleted);
-            case 'completed':
-                return tasks.filter((task) => task.isCompleted);
-            default:
-                return tasks;
-        }
-    };
-
-    const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
 
      
     // Ordenamiento de tareas por Prioridad
