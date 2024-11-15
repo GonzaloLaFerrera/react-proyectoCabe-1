@@ -57,6 +57,9 @@ const Home = () => {
     // Paginación
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [totalPages, setTotalPages] = useState();
+    const [hasNextPage, setHasNextPage] = useState();
+    const [hasLastPage, setHasLastPage] = useState();
 
 
     // Función de filtrado de tareas
@@ -111,7 +114,7 @@ const Home = () => {
         .then(resp => {
             if(resp.status === 200){
                 console.log("Updated Tasks!", resp)
-                fetchTasksFromUser()
+                fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter)
                 .then(resp => {    
                     console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
@@ -127,7 +130,7 @@ const Home = () => {
         fetchDeleteTask(id)
         .then(resp => {
             if(resp.status === 200){
-                fetchTasksFromUser()
+                fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter)
                 .then(resp => {    
                     console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
@@ -161,6 +164,7 @@ const Home = () => {
     };
 
 
+
      
     // Ordenamiento de tareas por Prioridad
     // const sortedTasks = [...filteredTasks()].sort((a,b) => {
@@ -177,8 +181,18 @@ const Home = () => {
             
             fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter) // 
             .then(resp => {  
+
+                setHasNextPage(resp.hasNextPage)
+                setHasLastPage(resp.hasPrevPage)
                   
-                console.log("TASKS", resp.docs)          
+                console.log("TASKS", resp)  
+                setTotalPages(resp.totalPages)
+                
+
+                if(totalPages < currentPage){
+                    setCurrentPage(1)
+                }
+                 
                 dispatch(loadUserTasks(resp.docs))
             })
             .catch(err => console.log(err));
@@ -188,7 +202,7 @@ const Home = () => {
         }
         //AGREGUÉ LOS NUEVOS ESTADOS
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged, currentPage, itemsPerPage, taskFilter, taskPriorityFilter, orderByTaskDeadline ]); // 
+    }, [isLogged, currentPage, itemsPerPage, taskFilter, taskPriorityFilter, orderByTaskDeadline, totalPages ]); // 
 
     
 
@@ -207,7 +221,7 @@ const Home = () => {
                 {/* Lista de Tareas */}
                 <div className="rounded-md bg-white mt-10 lg:mt-20 lg:w-[50%] lg:mx-auto">
 
-                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasMorePages={tasks.length === itemsPerPage}/>
+                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasNextPage={hasNextPage} hasLastPage={hasLastPage} />
                     <ToDoList todos={tasks} /* todos={filteredTasks()} */ /*todos={sortedTasks} */ setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}

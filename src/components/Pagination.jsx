@@ -1,21 +1,29 @@
+/* eslint-disable react/prop-types */
 // Icons
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const Pagination = ({ currentPage, setCurrentPage, hasMorePages }) => {
+const Pagination = ({ currentPage, setCurrentPage, hasLastPage, hasNextPage }) => {
     return (
         <section className="container flex mx-auto py-4 px-4 justify-between border-b border-b-gray-400">
             <button                
-                className={`${hasMorePages ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
+                className={`${hasLastPage ? "text-[#686060] font-bold cursor-pointer underline" : "text-[#686060]  cursor-pointer underline" }`}
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1} 
+                disabled={!hasLastPage} 
             >
-                <ArrowBackIosIcon />Last Page
+                <ArrowBackIosIcon />Previous Page
             </button>
+            <div className='flex gap-4'>
+                <span className={`${!hasLastPage ? "hidden" :"text-[#686060]"}`}>...</span> {/* falta agregar renderizado condicional */}
+                <span className={`${!hasLastPage ? "hidden" :"text-[#686060]"}`}>{currentPage - 1}</span>
+                <span className='text-[#686060] font-bold'>{currentPage}</span>
+                <span className={`${!hasNextPage ? "hidden" :"text-[#686060]"}`}>{currentPage + 1} </span>
+                <span className={`${!hasNextPage ? "hidden" :"text-[#686060]"}`}>...</span> {/* falta agregar renderizado condicional */}
+            </div>
             <button 
-                className={`${!hasMorePages ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
+                className={`${!hasNextPage ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
                 onClick={() => setCurrentPage(prev => prev + 1)}
-                disabled={!hasMorePages} 
+                disabled={!hasNextPage} 
             >
                 Next Page<ArrowForwardIosIcon />
             </button>
