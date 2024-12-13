@@ -3,25 +3,32 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect } from 'react';
 
-const Pagination = ({ currentPage, setCurrentPage, hasMorePages }) => {
+const Pagination = ({ currentPage, setCurrentPage, hasNextPage, hasPrevPage, totalPages, hasMorePages }) => {
 
     useEffect(() => {
-        console.log(hasMorePages)
+        console.log('Tiene pág sig: ' + hasNextPage, 'tiene pág anterior: ' + hasPrevPage)
     },[]);
 
     return (
         <section className="container flex mx-auto py-4 px-4 justify-between border-b border-b-gray-400">
             <button                
-                className={`${hasMorePages ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
+                className={`${hasPrevPage ? "text-[#686060] font-bold cursor-pointer underline" : "text-[#686060]  cursor-pointer underline" }`}
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1} 
+                disabled={!hasPrevPage} 
             >
-                <ArrowBackIosIcon />Last Page
+                <ArrowBackIosIcon />Previous Page
             </button>
+            <div className='flex gap-4'>
+                <span>...</span> {/* falta agregar renderizado condicional */}
+                <span className={`${!hasPrevPage ? "hidden" :"text-[#686060]"}`}>{currentPage - 1}</span>
+                <span className='text-[#686060] font-bold'>{currentPage}</span>
+                <span className={`${!hasNextPage ? "hidden" :"text-[#686060]"}`}>{currentPage + 1} </span>
+                <span>...</span> {/* falta agregar renderizado condicional */}
+            </div>
             <button 
-                className={`${!hasMorePages ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
+                className={`${hasNextPage ? "text-[#686060] font-bold cursor-pointer underline" : "text-[#686060] cursor-pointer underline" }`}
                 onClick={() => setCurrentPage(prev => prev + 1)}
-                disabled={!hasMorePages} 
+                disabled={!hasNextPage} 
             >
                 Next Page<ArrowForwardIosIcon />
             </button>
@@ -50,3 +57,24 @@ export default Pagination;
     Next Page
 </Button>
 </div> */}
+
+
+// Back Up Pagination anterior
+/* return (
+    <section className="container flex mx-auto py-4 px-4 justify-between border-b border-b-gray-400">
+        <button                
+            className={`${hasMorePages ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1} 
+        >
+            <ArrowBackIosIcon />Last Page
+        </button>
+        <button 
+            className={`${!hasMorePages ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
+            onClick={() => setCurrentPage(prev => prev + 1)}
+            disabled={!hasMorePages} 
+        >
+            Next Page<ArrowForwardIosIcon />
+        </button>
+    </section>
+); */

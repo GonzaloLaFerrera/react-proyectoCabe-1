@@ -46,6 +46,7 @@ const Home = () => {
 
     const [todos, setTodos] = useState(initialExampleTodos); 
     
+
     // ESTADOS GLOBALES
     const {isLogged} = useSelector((state) => state.isLogged)
     const {tasks} = useSelector((state) => state.user)
@@ -57,6 +58,9 @@ const Home = () => {
     // Paginación
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [hasNextPage, setHasNextPage] = useState();
+    const [hasPrevPage, setHasPrevPage] = useState();
+    const [totalPages, setTotalPages] = useState();
 
 
     useEffect(() => {
@@ -64,7 +68,11 @@ const Home = () => {
             
             fetchTasksFromUser(currentPage, itemsPerPage)
             .then(resp => {    
-                console.log("TASKS", resp)          
+                console.log("TASKS", resp)
+                console.log("testing total tasks: ", resp.totalDocs)
+                setHasNextPage(resp.hasNextPage)
+                setHasPrevPage(resp.hasPrevPage)
+                setTotalPages(resp.totalPages)
                 dispatch(loadUserTasks(resp.docs))
             })
             .catch(err => console.log(err));
@@ -89,7 +97,7 @@ const Home = () => {
         .then(resp => {
             if(resp.status === 200){
                 console.log("Updated Tasks!", resp)
-                fetchTasksFromUser()
+                fetchTasksFromUser(currentPage, itemsPerPage) // Agregue los parametros de paginación para que labure con la página actual
                 .then(resp => {    
                     console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
@@ -183,7 +191,7 @@ const Home = () => {
                 
                 {/* Lista de Tareas */}
                 <div className="rounded-md bg-white mt-10 lg:mt-20 lg:w-[50%] lg:mx-auto">
-                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} /* hasMorePages={tasks.length === itemsPerPage} */ hasMorePages={tasks.length > itemsPerPage}/>
+                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasNextPage={hasNextPage} hasPrevPage={hasPrevPage} totalPages={totalPages} /* hasMorePages={tasks.length === itemsPerPage} */ /* hasMorePages={tasks.length > itemsPerPage} *//>
                     <ToDoList /* todos={tasks} */ /* todos={filteredTasks()} */ todos={sortedTasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
