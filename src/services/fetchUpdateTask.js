@@ -1,4 +1,4 @@
-const fetchIsCompletedTask = (id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority) => {
+const fetchIsCompletedTask = (id, taskTitle, taskDescription, isCompleted, taskDeadline, isPriority) => {
     return fetch(`http://localhost:3000/user/tasks/${id}`, {
         method: "PUT",
         headers: {
