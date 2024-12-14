@@ -58,33 +58,51 @@ const Home = () => {
     // Paginación
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
-    const [hasNextPage, setHasNextPage] = useState();
-    const [hasPrevPage, setHasPrevPage] = useState();
     const [totalPages, setTotalPages] = useState();
+    const [hasNextPage, setHasNextPage] = useState();
+    const [hasLastPage, setHasLastPage] = useState();
 
 
-    useEffect(() => {
-        if(isLogged){          
-            
-            fetchTasksFromUser(currentPage, itemsPerPage)
-            .then(resp => {    
-                console.log("TASKS", resp)
-                console.log("testing total tasks: ", resp.totalDocs)
-                setHasNextPage(resp.hasNextPage)
-                setHasPrevPage(resp.hasPrevPage)
-                setTotalPages(resp.totalPages)
-                dispatch(loadUserTasks(resp.docs))
-            })
-            .catch(err => console.log(err));
-                //ACA CAMBIÉ EL FETCH A LAS TAREAS DEL USUARIO (AHORA LO HACEMOS DE FORMA INDEPENDIENTE A LA INFO DEL USUARIO, PARA TENER LA POSIBILIDAD DE PAGINAR
-                // LA LLAMADA A PROFILE SE HACE CUANDO SE LOGUEA
+    // Función de filtrado de tareas
+    const [taskFilter, setTaskFilter] = useState('all');
+    const [taskPriorityFilter, setTaskPriorityFilter] = useState("off");
+    const [orderByTaskDeadline, setOrderByTaskDeadline] = useState("none");
+
+    // const tasksFilterValues = ["all", "false", "true"]
+    const priorityFilterValues = ["off", "true", "false"];
+    const taskDeadlineFilterValues = ["none", "asc", "desc"];
+
+    const handlePriorityFilter = (e) => {
+        
+        const currentIndex = priorityFilterValues.findIndex(el => el === taskPriorityFilter);
+        let nextPriorityFilter = currentIndex < 2 ? currentIndex + 1 : 0;
+        setTaskPriorityFilter(priorityFilterValues[nextPriorityFilter])
+       
+    } 
+
+    const handleOrderByTaskDeadline = () => {
+        const currentIndex = taskDeadlineFilterValues.findIndex(el => el === orderByTaskDeadline);
+        let nextOrderByTaskDeadlineSort = currentIndex < 2 ? currentIndex + 1 : 0;
+        setOrderByTaskDeadline(taskDeadlineFilterValues[nextOrderByTaskDeadlineSort])
+    }
+
+    // const filteredTasks = () => {
+    //     switch(taskFilter) {
+    //         case 'all':
+    //             return setTaskFilter(taskFilter);
+    //         case 'active':
+    //             return setTaskFilter(taskFilter);
+    //         case 'completed':
+    //             return setTaskFilter(taskFilter);
+    //         default:
+    //             return tasks;
+    //     }
+    // };
+
+    const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
+
+
     
-        } else {
-            navigate('/')
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged, currentPage, itemsPerPage]);
-
     // Debugging Completed Tasks
     // console.log(tasks)
     // console.log(completedTasks)
@@ -97,7 +115,7 @@ const Home = () => {
         .then(resp => {
             if(resp.status === 200){
                 console.log("Updated Tasks!", resp)
-                fetchTasksFromUser(currentPage, itemsPerPage) // Agregue los parametros de paginación para que labure con la página actual
+                fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter)
                 .then(resp => {    
                     console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
@@ -113,7 +131,7 @@ const Home = () => {
         fetchDeleteTask(id)
         .then(resp => {
             if(resp.status === 200){
-                fetchTasksFromUser()
+                fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter)
                 .then(resp => {    
                     console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
@@ -146,34 +164,47 @@ const Home = () => {
         }
     };
 
-    // Función de filtrado de tareas
-    const [taskFilter, setTaskFilter] = useState('all');
 
-    const filteredTasks = () => {
-        switch(taskFilter) {
-            case 'all':
-                return tasks;
-            case 'active':
-                return tasks.filter((task) => !task.isCompleted);
-            case 'completed':
-                return tasks.filter((task) => task.isCompleted);
-            default:
-                return tasks;
-        }
-    };
-
-    const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
 
      
     // Ordenamiento de tareas por Prioridad
-    const sortedTasks = [...filteredTasks()].sort((a,b) => {
+    // const sortedTasks = [...filteredTasks()].sort((a,b) => {
         
-        if(a.isPriority && !b.isPriority) return -1; //tendría prioridad 'a'
+    //     if(a.isPriority && !b.isPriority) return -1; //tendría prioridad 'a'
         
-        if(!a.isPriority && b.isPriority) return 1; //tendría prioridad 'b'
+    //     if(!a.isPriority && b.isPriority) return 1; //tendría prioridad 'b'
 
-        return 0; //no habría cambio de prioridad
-    });
+    //     return 0; //no habría cambio de prioridad
+    // });
+
+    useEffect(() => {
+        if(isLogged){   
+            
+            fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter) // 
+            .then(resp => {  
+
+                setHasNextPage(resp.hasNextPage)
+                setHasLastPage(resp.hasPrevPage)
+                  
+                console.log("TASKS", resp)  
+                setTotalPages(resp.totalPages)
+                
+
+                if(totalPages < currentPage){
+                    setCurrentPage(1)
+                }
+                 
+                dispatch(loadUserTasks(resp.docs))
+            })
+            .catch(err => console.log(err));
+    
+        } else {
+            navigate('/')
+        }
+        //AGREGUÉ LOS NUEVOS ESTADOS
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLogged, currentPage, itemsPerPage, taskFilter, taskPriorityFilter, orderByTaskDeadline, totalPages ]); // 
+
     
 
     return (
@@ -187,12 +218,12 @@ const Home = () => {
                 <Button variant="contained" style={{ border: '1px solid #afa5a5', cursor: 'pointer', backgroundColor: '#686060'}} sx={{ textAlign:'center', marginTop:{xs:2, sm:2, md:6}, marginX: {sm:22,md:'auto', lg:'auto'}, width:{md: '40%',lg:'25%'}, boxShadow:{lg:3} }}>
                     <NavLink to='/user/todoCreation'>Create new task</NavLink>
                 </Button>
-
                 
                 {/* Lista de Tareas */}
                 <div className="rounded-md bg-white mt-10 lg:mt-20 lg:w-[50%] lg:mx-auto">
-                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasNextPage={hasNextPage} hasPrevPage={hasPrevPage} totalPages={totalPages} /* hasMorePages={tasks.length === itemsPerPage} */ /* hasMorePages={tasks.length > itemsPerPage} *//>
-                    <ToDoList /* todos={tasks} */ /* todos={filteredTasks()} */ todos={sortedTasks} setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
+
+                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} hasNextPage={hasNextPage} hasLastPage={hasLastPage} />
+                    <ToDoList todos={tasks} /* todos={filteredTasks()} */ /*todos={sortedTasks} */ setIsCompleted={setIsCompleted} removeTodo={removeTodo} /* priorityTodo={priorityTodo} *//>
                     
                     {/* Operaciones Computadas */}
                     <ToDoComputed todos={tasks} computedItemsLeft={computedItemsLeft} clearCompleted={clearCompleted}/>
@@ -200,7 +231,7 @@ const Home = () => {
                 </div>
                 
                 {/* Selector de filtros */}
-                <ToDoFilter changeFilter={changeFilter} taskFilter={taskFilter}/>
+                <ToDoFilter changeFilter={changeFilter} taskFilter={taskFilter} taskPriorityFilter={taskPriorityFilter} handlePriorityFilter={handlePriorityFilter} handleOrderByTaskDeadline={handleOrderByTaskDeadline} orderByTaskDeadline={orderByTaskDeadline}/>
             </main>
         </div>
     )

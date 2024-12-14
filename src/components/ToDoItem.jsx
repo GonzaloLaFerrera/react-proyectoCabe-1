@@ -37,7 +37,7 @@ const ToDoItem = ({todo, setIsCompleted, removeTodo}) => {
     return (
         <article className="flex gap-4 px-4 py-4 border-b border-b-gray-400" >
             <button 
-                onClick={() => setIsCompleted(_id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority)}
+                onClick={() => setIsCompleted(_id, taskTitle, taskDescription, isCompleted, taskDeadline, isPriority)}
                 className={`${isCompleted && "rounded-full border-2 h-8 w-8 flex justify-center items-center bg-gradient-to-r from-blue-500 via-green-500 to-green-300"}`}
 
             >

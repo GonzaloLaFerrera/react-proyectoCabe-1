@@ -1,32 +1,28 @@
+/* eslint-disable react/prop-types */
 // Icons
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect } from 'react';
 
-const Pagination = ({ currentPage, setCurrentPage, hasNextPage, hasPrevPage, totalPages, hasMorePages }) => {
-
-    useEffect(() => {
-        console.log('Tiene pág sig: ' + hasNextPage, 'tiene pág anterior: ' + hasPrevPage)
-    },[]);
-
+const Pagination = ({ currentPage, setCurrentPage, hasLastPage, hasNextPage }) => {
     return (
         <section className="container flex mx-auto py-4 px-4 justify-between border-b border-b-gray-400">
             <button                
-                className={`${hasPrevPage ? "text-[#686060] font-bold cursor-pointer underline" : "text-[#686060]  cursor-pointer underline" }`}
+                className={`${hasLastPage ? "text-[#686060] font-bold cursor-pointer underline" : "text-[#686060]  cursor-pointer underline" }`}
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={!hasPrevPage} 
+                disabled={!hasLastPage} 
             >
                 <ArrowBackIosIcon />Previous Page
             </button>
             <div className='flex gap-4'>
-                <span>...</span> {/* falta agregar renderizado condicional */}
-                <span className={`${!hasPrevPage ? "hidden" :"text-[#686060]"}`}>{currentPage - 1}</span>
+                <span className={`${!hasLastPage ? "hidden" :"text-[#686060]"}`}>...</span> {/* falta agregar renderizado condicional */}
+                <span className={`${!hasLastPage ? "hidden" :"text-[#686060]"}`}>{currentPage - 1}</span>
                 <span className='text-[#686060] font-bold'>{currentPage}</span>
                 <span className={`${!hasNextPage ? "hidden" :"text-[#686060]"}`}>{currentPage + 1} </span>
-                <span>...</span> {/* falta agregar renderizado condicional */}
+                <span className={`${!hasNextPage ? "hidden" :"text-[#686060]"}`}>...</span> {/* falta agregar renderizado condicional */}
             </div>
             <button 
-                className={`${hasNextPage ? "text-[#686060] font-bold cursor-pointer underline" : "text-[#686060] cursor-pointer underline" }`}
+                className={`${!hasNextPage ? "text-[#686060] cursor-pointer underline" : "text-[#686060] font-bold cursor-pointer underline" }`}
                 onClick={() => setCurrentPage(prev => prev + 1)}
                 disabled={!hasNextPage} 
             >
