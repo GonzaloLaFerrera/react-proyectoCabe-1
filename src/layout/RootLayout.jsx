@@ -29,24 +29,3 @@ const LayoutPublic = () => {
 };
 
 export default LayoutPublic;
-
-
-/* #dfdada
-return(
-    <>
-        {
-            userIsLogged ? (
-            <div className="min-h-screen bg-[#dfdada] flex flex-col justify-between">
-                <div>
-                    <nav><NavBar /></nav>
-                    <main><Outlet /></main>
-                </div>
-                <div>
-                    <footer><Footer /></footer>
-                </div>
-            </div>
-            )   : navigate('/')
-        }
-    </>
-);
-}; */

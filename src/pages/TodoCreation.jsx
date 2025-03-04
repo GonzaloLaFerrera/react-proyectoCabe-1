@@ -76,7 +76,7 @@ const TodoCreation = () => {
             try {
                 const response = await taskCreation(values.title, values.description, values.deadline, values.priority);
                 if (response.ok) {
-                    alert('Los datos ingresados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'));
+                    // alert('Los datos ingresados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'));
                     console.log("Hemos creado la Tarea para UD!");
                     Swal.fire({
                         title: 'Task succesfully created!',

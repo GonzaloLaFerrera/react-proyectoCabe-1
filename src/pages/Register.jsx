@@ -67,7 +67,7 @@ const Register = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             console.log(values)
             userRegister(values.name, values.lastName, values.email, values.password)
             .then((data)=>{

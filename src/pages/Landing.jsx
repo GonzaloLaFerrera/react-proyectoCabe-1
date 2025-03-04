@@ -12,8 +12,6 @@ const Landing = () => {
                 <div className="bg-[url('./assets/img/remoteWork.jpeg')] bg-cover bg-no-repeat bg-center h-[200px] w-full mt-10 flex flex-col justify-center sm:bg-[url('./assets/img/pexels-olia-danilevich-5088017.jpg')] sm:bg-cover sm:h-[300px] ">
                     <h3 className="font-bold text-center text-xl mb-2 sm:text-2xl sm:mb-6 lg:text-6xl">Welcome to </h3>
                     <h1 className="font-medium text-lg text-center mb-8 lg:text-2xl">"C A V E M E N O R G A N I Z E R" <LandscapeOutlinedIcon /></h1>
-                    {/* <Link to='/login'>¿Tenes una cuenta? Inicia Sesión.</Link>
-                    <Link to='/register'>¿No tenes cuenta? Regístrate.</Link> */}
                 </div>
                 <div className="mt-20 flex flex-col lg:flex-row lg:gap-28">
                     <p className="font-semibold lg:text-2xl lg:font-normal">Do you have an account?{/* <IconPriority className='text-lg'/> */}

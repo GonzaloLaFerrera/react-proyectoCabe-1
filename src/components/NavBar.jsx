@@ -29,7 +29,7 @@ const NavBar = () => {
             //prueba para el deslogueo exitoso (FUNCIONA PERFECTAMENTE)
             dispatch(setIsLogged(false))
             navigate('/user/logout')
-            alert('Sesión Finalizada') //puede ser una page o un componente
+            // alert('Sesión Finalizada') //puede ser una page o un componente
             Swal.fire({
                 title: 'Session finished!',
                 text: `See you soon...`,

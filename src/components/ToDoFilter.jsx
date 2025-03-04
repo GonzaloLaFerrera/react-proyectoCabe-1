@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 const ToDoFilter = ({ taskFilter, changeFilter, taskPriorityFilter, handlePriorityFilter, orderByTaskDeadline, handleOrderByTaskDeadline }) => {
   return (
     <div>
@@ -28,9 +27,28 @@ const ToDoFilter = ({ taskFilter, changeFilter, taskPriorityFilter, handlePriori
                                     : 'text-gray-500 hover:text-blue-600 hover:font-bold'
                                 }`}
                 >Completed</button>
+
+            <div className="hidden justify-center lg:flex lg:gap-4">
+                <button
+                    onClick={handlePriorityFilter} 
+                    className={`p-2 ${
+                                    taskPriorityFilter !== 'OFF' 
+                                    ? 'text-blue-600 hover:text-gray-500' 
+                                    : 'text-gray-500 hover:text-blue-600 hover:font-bold'
+                                }`}
+                >Priority - {taskPriorityFilter}</button>
+                <button
+                    onClick={() => handleOrderByTaskDeadline()} 
+                    className={`p-2 ${
+                                    orderByTaskDeadline !== 'NONE' 
+                                    ? 'text-blue-600 hover:text-gray-500'
+                                    : 'text-gray-500 hover:text-blue-600 hover:font-bold'
+                                }`}
+                >Deadline - {orderByTaskDeadline}</button>
+            </div>  
                 
                 {/* CAMBIÉ ESTO */}
-                <button
+                {/* <button
                     onClick={handlePriorityFilter} 
                     className={`${
                                     taskPriorityFilter !== 'off' 
@@ -45,8 +63,28 @@ const ToDoFilter = ({ taskFilter, changeFilter, taskPriorityFilter, handlePriori
                                     ? 'text-blue-600 hover:text-gray-500'
                                     : 'text-gray-500 hover:text-blue-600 hover:font-bold'
                                 }`}
-                >DeadLine:{orderByTaskDeadline}</button>
+                >DeadLine:{orderByTaskDeadline}</button> */}
             </div>
+        </section>
+        <section className="container mx-auto bg-white mt-3 rounded-md w-[70%] lg:hidden ">
+            <div className="flex justify-center gap-10">
+                <button
+                    onClick={handlePriorityFilter} 
+                    className={`p-2 ${
+                                    taskPriorityFilter !== 'OFF' 
+                                    ? 'text-blue-600 hover:text-gray-500' 
+                                    : 'text-gray-500 hover:text-blue-600 hover:font-bold'
+                                }`}
+                >Priority - {taskPriorityFilter}</button>
+                <button
+                    onClick={() => handleOrderByTaskDeadline()} 
+                    className={`p-2 ${
+                                    orderByTaskDeadline !== 'NONE' 
+                                    ? 'text-blue-600 hover:text-gray-500'
+                                    : 'text-gray-500 hover:text-blue-600 hover:font-bold'
+                                }`}
+                >Deadline - {orderByTaskDeadline}</button>
+            </div>            
         </section>
     </div>
   )

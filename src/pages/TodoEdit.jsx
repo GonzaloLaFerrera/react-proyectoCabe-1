@@ -61,7 +61,7 @@ const TodoEdit = () => {
             try {
                 const response = await fetchEditTask(values.id, values.title, values.description, values.deadline, values.isCompleted, values.priority);
                 if (response.ok) {
-                    alert('Los datos editados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'))
+                    // alert('Los datos editados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'))
                     Swal.fire({
                         title: 'Task succesfully edited!',
                         html:`<p><strong>Title:</strong> ${values.title}</p>

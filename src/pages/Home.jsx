@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 
 import Header from "../components/Header";
 import ToDoList from "../components/ToDoList";
 
-import ToDoCreate from "../components/ToDoCreate";
+// import ToDoCreate from "../components/ToDoCreate";
 import ToDoComputed from "../components/ToDoComputed";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
@@ -15,7 +14,7 @@ import fetchTasksFromUser from "../services/fetchTasksFromUser";
 
 import { loadUserTasks } from "../redux/userSlice";
 
-import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
+// import { useRedirectActiveUser } from "../services/useRedirectActiveUser";
 import fetchDeleteTask from "../services/fetchDeleteTask";
 import fetchIsCompletedTask from "../services/fetchUpdateTask";
 import ToDoFilter from "../components/ToDoFilter";
@@ -68,7 +67,6 @@ const Home = () => {
     const [taskPriorityFilter, setTaskPriorityFilter] = useState("off");
     const [orderByTaskDeadline, setOrderByTaskDeadline] = useState("none");
 
-    // const tasksFilterValues = ["all", "false", "true"]
     const priorityFilterValues = ["off", "true", "false"];
     const taskDeadlineFilterValues = ["none", "asc", "desc"];
 
@@ -86,27 +84,7 @@ const Home = () => {
         setOrderByTaskDeadline(taskDeadlineFilterValues[nextOrderByTaskDeadlineSort])
     }
 
-    // const filteredTasks = () => {
-    //     switch(taskFilter) {
-    //         case 'all':
-    //             return setTaskFilter(taskFilter);
-    //         case 'active':
-    //             return setTaskFilter(taskFilter);
-    //         case 'completed':
-    //             return setTaskFilter(taskFilter);
-    //         default:
-    //             return tasks;
-    //     }
-    // };
-
     const changeFilter = (taskFilter) => {setTaskFilter(taskFilter)};
-
-
-    
-    // Debugging Completed Tasks
-    // console.log(tasks)
-    // console.log(completedTasks)
-
 
     // Funcionalidad para actualizar tareas
     const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority) => {
@@ -141,11 +119,7 @@ const Home = () => {
         });
     };
 
-    // Funcionalidad de Prioridad
-    /* const priorityTodo = (id) => {
-        console.log("click en DAR PRIORIDAD en tarea", id)
-    }; */
-
+    
     // Función/filtro para saber cantidad(number) de tareas NO completadas
     const computedItemsLeft = tasks.filter(task => !task.isCompleted).length
     console.log(computedItemsLeft)
@@ -164,18 +138,6 @@ const Home = () => {
         }
     };
 
-
-
-     
-    // Ordenamiento de tareas por Prioridad
-    // const sortedTasks = [...filteredTasks()].sort((a,b) => {
-        
-    //     if(a.isPriority && !b.isPriority) return -1; //tendría prioridad 'a'
-        
-    //     if(!a.isPriority && b.isPriority) return 1; //tendría prioridad 'b'
-
-    //     return 0; //no habría cambio de prioridad
-    // });
 
     useEffect(() => {
         if(isLogged){   
@@ -202,7 +164,6 @@ const Home = () => {
             navigate('/')
         }
         //AGREGUÉ LOS NUEVOS ESTADOS
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLogged, currentPage, itemsPerPage, taskFilter, taskPriorityFilter, orderByTaskDeadline, totalPages ]); // 
 
     

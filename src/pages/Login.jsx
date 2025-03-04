@@ -43,7 +43,7 @@ const Login = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2)); // Podría cambiar este alerta por Sweet Alert            
+            // alert(JSON.stringify(values, null, 2)); // Podría cambiar este alerta por Sweet Alert            
             console.log(values)
             userLogin(values.email, values.password)
             .then(resp => {
