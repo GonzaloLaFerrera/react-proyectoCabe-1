@@ -41,13 +41,11 @@ const Login = () => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            // alert(JSON.stringify(values, null, 2)); // Podría cambiar este alerta por Sweet Alert            
-            console.log(values)
+            
             userLogin(values.email, values.password)
             .then(resp => {
                 if(resp.status === 200){
                     dispatch(setIsLogged(true))
-                    // console.log('El console del LOGUEO', isLogged)                    
                     navigate("/user");
                     Swal.fire({
                         title: 'Succesful login!',
