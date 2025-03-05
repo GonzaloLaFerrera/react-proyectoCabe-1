@@ -50,12 +50,12 @@ const Register = () => {
     
     const {userIsLogged} = useSelector((state) => state.isLogged)
 
-    console.log('El Console del ESTADO LOGUEADO EN REGISTRO', userIsLogged);
+    // console.log('El Console del ESTADO LOGUEADO EN REGISTRO', userIsLogged);
 
     useRedirectActiveUser(userIsLogged, '/home');
 
     useEffect(() => {
-        console.log('ESTOY VIENDOTE!!!!', userIsLogged)
+        // console.log('ESTOY VIENDOTE!!!!', userIsLogged)
     },[userIsLogged]);
 
     const formik = useFormik({
@@ -68,10 +68,10 @@ const Register = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             // alert(JSON.stringify(values, null, 2));
-            console.log(values)
+            // console.log(values)
             userRegister(values.name, values.lastName, values.email, values.password)
             .then((data)=>{
-                console.log(data)
+                // console.log(data)
                 if(data.ok){
                     navigate("/login");
                     Swal.fire({
@@ -96,7 +96,6 @@ const Register = () => {
 
     return(
         <>
-            {/* <Box sx={{mt:8, width:'75%', mx:2}}> */}
             <Box sx={{backgroundColor:{lg:'#c4bcbc'},paddingBottom:{lg:4},width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:2}, marginX:{lg:'auto'}, boxShadow:{lg:2},}}>
                 <Avatar sx={{width:{lg:60}, height:{lg:60}, mx:'auto', bgcolor:'#767477', mt:{sm:6, lg:4} }}>
                     <Https sx={{ fontSize:{ lg:60 }}}/>
@@ -159,9 +158,6 @@ const Register = () => {
                                 Sign up
                             </button>
                         </Box>
-                        {/* <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 md:mx-[340px] md:mt-12" type="submit">
-                            REGISTRARSE
-                        </button> */}
                 </Box>
             </Box>
         </>

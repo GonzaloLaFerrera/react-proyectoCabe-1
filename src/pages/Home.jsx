@@ -88,14 +88,14 @@ const Home = () => {
 
     // Funcionalidad para actualizar tareas
     const setIsCompleted = (id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority) => {
-        console.log('click en updateTodo', id)
+        // console.log('click en updateTodo', id)
         return fetchIsCompletedTask(id, taskTitle, taskDescription, taskDeadline, isCompleted, isPriority)
         .then(resp => {
             if(resp.status === 200){
-                console.log("Updated Tasks!", resp)
+                // console.log("Updated Tasks!", resp)
                 fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter)
                 .then(resp => {    
-                    console.log("Update TASKS", resp)          
+                    // console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
                 })
                 .catch(err => console.log(err)); 
@@ -105,13 +105,13 @@ const Home = () => {
 
 
     const removeTodo = (id) => {
-        console.log("click en eliminar tarea", id)
+        // console.log("click en eliminar tarea", id)
         fetchDeleteTask(id)
         .then(resp => {
             if(resp.status === 200){
                 fetchTasksFromUser(currentPage, itemsPerPage, taskFilter, orderByTaskDeadline, taskPriorityFilter)
                 .then(resp => {    
-                    console.log("Update TASKS", resp)          
+                    // console.log("Update TASKS", resp)          
                     dispatch(loadUserTasks(resp.docs))
                 })
                 .catch(err => console.log(err)); 
@@ -122,7 +122,7 @@ const Home = () => {
     
     // Función/filtro para saber cantidad(number) de tareas NO completadas
     const computedItemsLeft = tasks.filter(task => !task.isCompleted).length
-    console.log(computedItemsLeft)
+    // console.log(computedItemsLeft)
 
     // Función para eliminar las tareas completadas
     const clearCompleted = () => {
@@ -130,7 +130,7 @@ const Home = () => {
         
         if(completedTasks.length > 0) {
             completedTasks.forEach(task => {
-                console.log('El id de las tareas completadas: ' + task._id)
+                // console.log('El id de las tareas completadas: ' + task._id)
                 removeTodo(task._id);  // Llama a la función removeTodo para cada tarea completada
             });
         } else {
@@ -148,7 +148,7 @@ const Home = () => {
                 setHasNextPage(resp.hasNextPage)
                 setHasLastPage(resp.hasPrevPage)
                   
-                console.log("TASKS", resp)  
+                // console.log("TASKS", resp)  
                 setTotalPages(resp.totalPages)
                 
 

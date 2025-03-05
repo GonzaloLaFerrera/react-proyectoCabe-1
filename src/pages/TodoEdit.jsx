@@ -24,12 +24,7 @@ const TodoEdit = () => {
 
     const navigate = useNavigate();
     const taskLoading = useSelector((state) => state.user.taskDetail) //Me levanta la tarea en detalle
-    const {tasks} = useSelector((state) => state.user) //Me levanta todas las tareas del usuario
 
-    useEffect(() => {
-        console.log(taskLoading)
-        // console.log(tasks)
-    }, []);
 
     const validationSchema = yup.object({
         title: yup
@@ -57,11 +52,10 @@ const TodoEdit = () => {
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
-            console.log(values)
+            
             try {
                 const response = await fetchEditTask(values.id, values.title, values.description, values.deadline, values.isCompleted, values.priority);
                 if (response.ok) {
-                    // alert('Los datos editados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La Prioridad es: ' + values.priority + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'))
                     Swal.fire({
                         title: 'Task succesfully edited!',
                         html:`<p><strong>Title:</strong> ${values.title}</p>
@@ -72,7 +66,7 @@ const TodoEdit = () => {
                         confirmButtonText: 'Continue...',
                         confirmButtonColor: '#686060'
                     })
-                    console.log('Hemos editado su tarea: ' + values)
+                    
                     navigate('/user')
                 } else {
                     Swal.fire({

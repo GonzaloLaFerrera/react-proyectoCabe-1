@@ -23,8 +23,8 @@ const NavBar = () => {
             },
             credentials: 'include'
         }).then((data)=>{
-            console.log(data)
-            console.log('Desolgueando al Usario!')
+            // console.log(data)
+            // console.log('Desolgueando al Usario!')
             dispatch(logoutUser())
             //prueba para el deslogueo exitoso (FUNCIONA PERFECTAMENTE)
             dispatch(setIsLogged(false))
@@ -38,7 +38,7 @@ const NavBar = () => {
                 confirmButtonColor: '#686060'
             })            
             if(data.status !== 200){
-                console.log('Algo salió mal en el Logout')
+                // console.log('Algo salió mal en el Logout')
                 navigate("/")
             } 
         });

@@ -25,18 +25,18 @@ const LayoutPrivate = () => {
     }, []); */
 
     useEffect(() => {
-        console.log(isLogged, "chequeando estado de Logueo de Usuario")
+        // console.log(isLogged, "chequeando estado de Logueo de Usuario")
         if(isLogged === false) {
-            console.log("EL USUARIO NO ESTA LOGUEADO! TE REDIRIJO DESDE EL LAYOUT PRIVADO!")
+            // console.log("EL USUARIO NO ESTA LOGUEADO! TE REDIRIJO DESDE EL LAYOUT PRIVADO!")
             navigate('/')
         } else {
-            console.log("Entro al ELSE")
+            // console.log("Entro al ELSE")
             navigate('/user')
         }
          
     }, [isLogged]);
 
-    console.log(isLogged, "chequeando por fuera del UseEffect")
+    // console.log(isLogged, "chequeando por fuera del UseEffect")
 
     return (
     

@@ -26,7 +26,7 @@ const ToDoItem = ({todo, setIsCompleted, removeTodo}) => {
            return data.json()
         })
         .then(resp => {
-            console.log(resp);
+            // console.log(resp);
             dispatch(loadDetailTask(resp))
             navigate(`/user/taskDetail`)
         })

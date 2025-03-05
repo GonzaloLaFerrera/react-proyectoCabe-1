@@ -82,10 +82,6 @@ const Register = () => {
         }
     })
 
-    /* const [error, setError] = useState({
-        error: false,
-        message:''
-    }) */
 
     // Validación de Nombre
     const validateFirstName = (firstName) => {
@@ -112,75 +108,8 @@ const Register = () => {
         return passwordRegex.test(password);
     };
 
-    //Validación de 1 sólo campo (FUNCIONA)
-    /* const handleSubmit = (e) => {
-        e.preventDefault()
-        if (validateFirstName(firstName)) {
-            setError({
-                error: false,
-                message: '',
-            })
-            console.log('First Name Correcto: ' + firstName)
-        } else {
-            setError({
-                error: true,
-                message: 'Ingrese un nombre válido. Mínimo 2 carácteres, y máximo 14.'
-            })
-        };
-    }; */
-
-    //Validación de Múltiples campos
-    /* const handleSubmit = (e) => {
-        e.preventDefault()
-
-        let hasErrors = false;
-        const newErrors = {...error};
-
-        if (!validateFirstName(firstName)) {
-            newErrors.firstName.message = 'Ingrese un nombre válido. Mínimo 2 carácteres, y máximo 14.'
-            hasErrors = true;
-        } else {
-            newErrors.firstName.message = '';
-            console.log('Nombre ingresado correctamente: ' + firstName)
-        };
-
-        if (!validateLastName(lastName)) {
-            newErrors.lastName.message = 'Ingrese un apellido válido. Mínimo 2 carácteres, y máximo 14.'
-            hasErrors = true;
-        } else {
-            newErrors.lastName.message = '';
-            console.log('Apellido ingresado correctamente: ' + lastName)
-        };
-
-        if (!validateEmail(email)) {
-            newErrors.email.message = 'Ingrese un formato de email válido. (Incluya @ y el dominio).'
-            hasErrors = true;
-        } else {
-            newErrors.email.message = '';
-            console.log('Email ingresado correctamente: ' + email)
-        };
-
-        if (!validatePassword(password)) {
-            newErrors.password.message = 'Ingrese un formato de password válido. (Incluya mínimo 8 caracteres, incluyendo mayúsculas, minúsculas y un número).'
-            hasErrors = true;
-        } else {
-            newErrors.password.message = '';
-            console.log('Password ingresado correctamente: ' + password)
-        };
-
-        setError(newErrors);
-    }; */
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        
-        /* setError((prevError) => ({
-            ...prevError,
-            firstName: { error: false, message: "" },
-            lastName: { error: false, message: "" },
-            email: { error: false, message: "" },
-            password: { error: false, message: "" },
-          })); */
 
         if (validateFirstName(firstName)) {
             setError({
@@ -189,7 +118,7 @@ const Register = () => {
                     message: ''
                 }
             })
-            console.log('First Name Correcto: ' + firstName)
+            // console.log('First Name Correcto: ' + firstName)
         } else {
             setError({
                 firstName:{
@@ -223,7 +152,7 @@ const Register = () => {
                     message: ''
                 }
             })
-            console.log('Apellido ingresado correctamente: ' + email)
+            // console.log('Apellido ingresado correctamente: ' + email)
         } else {
             setError({
                 email: {
@@ -240,7 +169,7 @@ const Register = () => {
                     message: ''
                 }               
             })
-            console.log('Apellido ingresado correctamente: ' + password)
+            // console.log('Apellido ingresado correctamente: ' + password)
         } else {
             setError({
                 password:{
@@ -324,14 +253,6 @@ const Register = () => {
                     REGISTRARSE
                 </button>
             </Box>
-            {/* EL QUE FUNCIONABA! <button className="h-15 w-30 rounded-md bg-[#aaa4a4] text-black text-md font-semibold px-2 py-4 hover:shadow-lg hover:cursor-pointer mt-8 mx-36" onClick={handleClick}> 
-                REGISTRARSE
-            </button>*/}
-            {/* <Button 
-                fullWidth 
-                variant="contained" 
-                onClick={handleClick}
-            >Registrar</Button> */}
         </Box>
     );
 };

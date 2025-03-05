@@ -52,26 +52,8 @@ const TodoCreation = () => {
             priority: false           
         },
         validationSchema: validationSchema,
-       /*  ANTES DE CHATGPT -> onSubmit: (values) => {
-            // let testDate = new Date();
-            // testDate = dayjs(newValue).format('DD/MM/YYYY')
-            // console.log(testDate)
-            alert(JSON.stringify(values, null, 2));
-            console.log('chequeando el submiteo del form con Formik' + values);
-            taskCreation(values.title, values.description, values.deadline, values.priority)
-            .then((response) => {
-                console.log(response)
-                if(response.ok) {
-                    // alert('Los datos ingresados son: - Titulo: ' + title +' - Descripcion: '+ description + ' - La fecha seleccionada es: ' + dayjs(deadline).format('DD/MM/YYYY'))
-                    alert('Los datos ingresados son: - Titulo: ' + values.title + ' - Descripcion: ' + values.description + ' - La fecha seleccionada es: ' + dayjs(values.deadline).format('DD/MM/YYYY'));
-                    console.log("Hemos creado la Tarea para UD!")
-                    console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
-                    console.log(response)
-                    navigate('/user')
-                }}
-            )
-        } */
-    //    Con CHATGPT -> haciendo async el envio del onSubmit
+
+    //  Haciendo async el envio del onSubmit
         onSubmit: async (values) => {
             try {
                 const response = await taskCreation(values.title, values.description, values.deadline, values.priority);
@@ -107,66 +89,9 @@ const TodoCreation = () => {
     
     })
 
-    /* const [stateForm, setStateForm] = useState({
-        title:'',
-        description: '',
-        priority: false,
-        deadline: null
-    }) */
-
     const navigate = useNavigate();
 
     const {isLogged} = useSelector((state) => state.isLogged);
-
-    /* SIN FORMIK NI VALIDACIÓN 
-    
-    const handleSubmitForm = async (e) => {
-        e.preventDefault();
-
-        try {
-            const { title, description, deadline, priority } = stateForm;
-            console.log('funciona el submiteo en consola');
-            console.log('DATOS DEL CREATE TASK...')
-            console.log("Titulo:", title )
-            console.log("Descripcion:", description)
-            console.log("Vencimiento:", deadline)
-            console.log("Prioridad:", priority)
-        } catch(error) {
-            console.error('error al crear la tarea', error)
-        }
-
-        try {
-            const { title, description, deadline, priority } = stateForm;
-            const response = await fetch("http://localhost:3000/user/tasks/new", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({
-                    title: stateForm.title,
-                    description: stateForm.description,
-                    deadline: stateForm.deadline,
-                    priority: stateForm.priority
-                }),
-            });
-
-            if (response.ok) {
-                //Manejo de la respuesta exitosa
-                alert('Los datos ingresados son: - Titulo: ' + title +' - Descripcion: '+ description + ' - La fecha seleccionada es: ' + dayjs(deadline).format('DD/MM/YYYY'))
-                console.log("Hemos creado la Tarea para UD!")
-                console.log("Estado del Logueo de Usuario en CreateTask",isLogged)
-                console.log(response)
-                navigate('/user')
-            } else {
-                throw new Error(`Error creando tarea: ${response.statusText}`);
-            }
-
-        } catch (error) {
-            console.error("Error creando tarea:", error);
-        }
-    }; */
-    
 
     const handleChangeForm = (e) => {
         setStateForm((prev) => {
@@ -182,15 +107,12 @@ const TodoCreation = () => {
         //Prueba de depuración de la fecha (Funciona)
         let testDate = new Date();
         testDate = dayjs(newValue).format('DD/MM/YYYY') 
-        console.log(testDate) // ---> Funciona perfectamente el formateo y la obtención de la data pero el error está
-                              // ---> cuando intento pasarle el valor parseado al input. Necesita el objeto M2.
-                              // ---> tendría que parsearlo después
-        setStateForm({...stateForm, deadline: newValue}) //no puedo pasarle testDate (necesita el obj M2)
+        console.log(testDate)
+        setStateForm({...stateForm, deadline: newValue}) 
     }
 
     return(
         <>
-            {/* <Box sx={{ width:'100%', mt: 4, px:{sm:2}}}> */}
             <Box sx={{backgroundColor:{lg:'#d6cfcf'},paddingY:{lg:4},width:{xs:'100%', lg:'25%'}, mt: {xs:4, lg:6}, marginX:{lg:'auto'},/*  border:{lg:1}, borderColor:{lg:'grey'},  */boxShadow:{lg:2}, mb:{lg:'20px'}}}>
                 <Avatar sx={{ mx:'auto', bgcolor:'#767477', mt:{sm:6, lg:0}}}>
                     <AssignmentIcon />
@@ -201,7 +123,6 @@ const TodoCreation = () => {
                         id="title"
                         name='title'
                         label='Title'
-                        // placeholder="Enter a title for your task..."
                         fullWidth
                         sx={{ mb:3, bgcolor: '#f5f1f1', mt:{ sm:2 }}}
                         value={formik.values.title}
@@ -214,7 +135,6 @@ const TodoCreation = () => {
                         id="description"
                         name='description'
                         label='Description'
-                        // placeholder="Enter a brief description of your task..."
                         fullWidth
                         sx={{ mb:3, bgcolor:'#f5f1f1', mt:{ sm:2 }}}
                         value={formik.values.description}
@@ -222,8 +142,7 @@ const TodoCreation = () => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.description && Boolean(formik.errors.description)}
                         helperText={formik.touched.description && formik.errors.description}   
-                    />
-                    {/* <Typography variant="body1" component='span' ><b>Choose a date as deadline: </b></Typography> */}
+                    />                    
                     <DatePicker
                         name="deadline"
                         sx={{width:{xs:'358px', sm:'35%', lg:'50%'}, bgcolor:'#f5f1f1', mt:{ sm:2 }}}
@@ -236,28 +155,21 @@ const TodoCreation = () => {
                                 helperText: formik.touched.deadline && formik.errors.deadline
                             }
                         }}
-                        // onChange={formik.handleChange}
-                        /* renderInput={(params) => <TextField {...params} />} EN TEORIA ESTA DEPRECADO */ 
                     />
 
                     <FormGroup >
                         <FormControlLabel
                             id="priority"
                             name="priority" 
-                            label={<Typography sx={{ fontStyle: 'italic' }}>Mark task as priority*</Typography>}
-                            // label='Mark task as priority'
+                            label={<Typography sx={{ fontStyle: 'italic' }}>Mark task as priority*</Typography>}                            
                             control={<Checkbox
                                 checked={formik.values.priority}
-                                // onChange={formik.handleChange} 
                                 onChange={(event) => formik.setFieldValue('priority', event.target.checked)}
                                 inputProps={{ 
                                     'aria-label': 'controlled',
-                                    // error: formik.touched.priority && Boolean(formik.errors.priority),
-                                    // helperText: formik.touched.priority && formik.errors.priority 
-
                                 }}                                
                             />}
-                            sx={{marginY:2/* , display: {sm:'flex'}, justifyContent:{sm:'center'}, mt:{sm: 4} */}}
+                            sx={{marginY:2}}
                         />
                     </FormGroup>
 
